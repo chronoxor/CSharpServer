@@ -4,3 +4,5 @@
 
 C# Server Library provides functionality to create different kind of
 client/server solutions.
+
+[CShaprServer documentation](https://chronoxor.github.io/CSharpServer)
