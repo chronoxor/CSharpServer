@@ -1,0 +1,48 @@
+# Specify version format
+version: "1.0.0.{build}"
+
+# Image to use
+image: Visual Studio 2017
+
+# Branches to build
+branches:
+  only: 
+    - master
+
+# Including commits with 'build' comment
+only_commits:
+  message: build
+
+# Build matrix
+environment:
+  matrix:
+    - type: VisualStudio
+      build: call vs.bat
+      command: cmd /C
+
+# Allow to fail on first error in matrix
+matrix:
+  fast_finish: true
+
+# Scripts that run after cloning repository
+install:
+  # Chocolatey
+  - choco upgrade chocolatey
+  # Visual Studio
+  - if "%type%"=="VisualStudio" set PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;C:\Program Files\gs\gs9.22\bin;%PATH%
+  - if "%type%"=="VisualStudio" set INCLUDE=C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\um;%INCLUDE%
+  - if "%type%"=="VisualStudio" set LIB=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64;%LIB%
+  # git
+  - '%command% "cmake --version"'
+  - '%command% "git config --global user.name "AppVeyor""'
+  - '%command% "git config --global user.email "team@appveyor.com""'
+  - '%command% "git config --global push.default simple"'
+  - git submodule update --init --recursive --remote
+
+# Build scripts
+build_script:
+  - cd build
+  - '%build%'
+
+# Test scripts
+test: off

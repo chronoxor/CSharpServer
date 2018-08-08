@@ -5,3 +5,5 @@ call 02-build.bat
 if %errorlevel% neq 0 exit /b %errorlevel%
 call 03-tests.bat
 if %errorlevel% neq 0 exit /b %errorlevel%
+call 04-release.bat
+if %errorlevel% neq 0 exit /b %errorlevel%
