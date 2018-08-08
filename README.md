@@ -23,6 +23,7 @@ client/server solutions.
 
 # Requirements
 * Windows 7 / Windows 10
+* [7-Zip](https://www.7-zip.org)
 * [CMake](https://www.cmake.org)
 * [GIT](https://git-scm.com)
 * [Visual Studio](https://www.visualstudio.com)
@@ -53,6 +54,6 @@ vs.bat
 ```
 
 The build script will create "release" directory with zip files:
-* CSharpServer.zip - C# Server assembly
-* Benchmarks.zip - C# Server benchmarks
-* Examples.zip - C# Server examples
+* [CSharpServer.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/CSharpServer.zip) - C# Server assembly
+* [Benchmarks.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/Benchmarks.zip) - C# Server benchmarks
+* [Examples.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/Examples.zip) - C# Server examples
