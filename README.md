@@ -6,10 +6,10 @@ C# Server Library provides functionality to create different kind of
 client/server solutions.
 
 [CShaprServer documentation](https://chronoxor.github.io/CSharpServer)
-[CShaprServer downloads](https://github.com/chronoxor/CSharpServer/releases)
 
 # Contents
   * [Features](#features)
+  * [Downloads](#downloads)
   * [Requirements](#requirements)
   * [How to build?](#how-to-build)
     * [Clone repository with submodules](#clone-repository-with-submodules)
@@ -21,6 +21,12 @@ client/server solutions.
 * Supported CPU scalability designs: IO service per thread, thread pool
 * Supported transport protocols: [TCP](#example-tcp-chat-server), [SSL](#example-ssl-chat-server),
   [UDP](#example-udp-echo-server), [UDP multicast](#example-udp-multicast-server)
+
+# Downloads
+[CShaprServer downloads](https://github.com/chronoxor/CSharpServer/releases):
+* [CSharpServer.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/CSharpServer.zip) - C# Server assembly
+* [Benchmarks.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/Benchmarks.zip) - C# Server benchmarks
+* [Examples.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/Examples.zip) - C# Server examples
 
 # Requirements
 * Windows 7 / Windows 10
@@ -42,7 +48,7 @@ git submodule update --init --recursive --remote
 Run CMake script to generate C++ projects:
 
 ```shell
-cd modules\CppServer\build\VisualStudio
+cd modules/CppServer/build/VisualStudio
 01-generate.bat
 ```
 
