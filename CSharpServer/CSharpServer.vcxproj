@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D35F3635-1AA3-40F2-A5B2-C83DB7D658D2}</ProjectGuid>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>CSharpServer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -24,14 +24,14 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CLRSupport>true</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CLRSupport>true</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -61,11 +61,11 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CRT_SECURE_NO_DEPRECATE;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;_WIN32_WINNT=0x0A00;CRYPT_SUPPORT;WINSOCK_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\CppServer\modules;..\..\CppServer\modules\CppCommon\include;..\..\CppServer\modules\CppCommon\modules\fmt;..\..\CppServer\modules\CppCommon\modules\vld;..\..\CppServer\include;..\..\CppServer\modules\asio\asio\include;..\..\CppServer\modules\openssl\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4575</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>..\modules\CppServer\modules;..\modules\CppServer\modules\CppCommon\include;..\modules\CppServer\modules\CppCommon\modules\fmt;..\modules\CppServer\modules\CppCommon\modules\vld;..\modules\CppServer\include;..\modules\CppServer\modules\asio\asio\include;..\modules\CppServer\modules\openssl\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4575;4793</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>..\..\CppServer\modules\openssl\Win64\lib\libssl.lib;..\..\CppServer\modules\openssl\Win64\lib\libcrypto.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\Crypt32.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\MsWSock.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\WS2_32.Lib;..\..\CppServer\temp\modules\CppCommon\Debug\cppcommon.lib;..\..\CppServer\temp\Debug\cppserver.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\DbgHelp.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\UserEnv.Lib;..\..\CppServer\temp\modules\CppCommon\modules\Debug\fmt.lib;..\..\CppServer\temp\modules\Debug\asio.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\modules\CppServer\modules\openssl\Win64\lib\libssl.lib;..\modules\CppServer\modules\openssl\Win64\lib\libcrypto.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\Crypt32.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\MsWSock.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\WS2_32.Lib;..\modules\CppServer\temp\modules\CppCommon\Debug\cppcommon.lib;..\modules\CppServer\temp\Debug\cppserver.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\DbgHelp.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\UserEnv.Lib;..\modules\CppServer\temp\modules\CppCommon\modules\Debug\fmt.lib;..\modules\CppServer\temp\modules\Debug\asio.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -73,11 +73,11 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_DEPRECATE;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;_WIN32_WINNT=0x0A00;CRYPT_SUPPORT;WINSOCK_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\CppServer\modules;..\..\CppServer\modules\CppCommon\include;..\..\CppServer\modules\CppCommon\modules\fmt;..\..\CppServer\modules\CppCommon\modules\vld;..\..\CppServer\include;..\..\CppServer\modules\asio\asio\include;..\..\CppServer\modules\openssl\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4575</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>..\modules\CppServer\modules;..\modules\CppServer\modules\CppCommon\include;..\modules\CppServer\modules\CppCommon\modules\fmt;..\modules\CppServer\modules\CppCommon\modules\vld;..\modules\CppServer\include;..\modules\CppServer\modules\asio\asio\include;..\modules\CppServer\modules\openssl\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4575;4793</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>..\..\CppServer\modules\openssl\Win64\lib\libssl.lib;..\..\CppServer\modules\openssl\Win64\lib\libcrypto.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\Crypt32.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\MsWSock.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\WS2_32.Lib;..\..\CppServer\temp\modules\CppCommon\Release\cppcommon.lib;..\..\CppServer\temp\Release\cppserver.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\DbgHelp.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\UserEnv.Lib;..\..\CppServer\temp\modules\CppCommon\modules\Release\fmt.lib;..\..\CppServer\temp\modules\Release\asio.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\modules\CppServer\modules\openssl\Win64\lib\libssl.lib;..\modules\CppServer\modules\openssl\Win64\lib\libcrypto.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\Crypt32.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\MsWSock.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\WS2_32.Lib;..\modules\CppServer\temp\modules\CppCommon\RelWithDebInfo\cppcommon.lib;..\modules\CppServer\temp\RelWithDebInfo\cppserver.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\DbgHelp.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.16299.0\um\x64\UserEnv.Lib;..\modules\CppServer\temp\modules\CppCommon\modules\RelWithDebInfo\fmt.lib;..\modules\CppServer\temp\modules\RelWithDebInfo\asio.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
