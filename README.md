@@ -55,6 +55,6 @@ vs.bat
 ```
 
 The build script will create "release" directory with zip files:
-* [CSharpServer.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/CSharpServer.zip) - C# Server assembly
-* [Benchmarks.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/Benchmarks.zip) - C# Server benchmarks
-* [Examples.zip](https://github.com/chronoxor/CSharpServer/releases/download/1.0.0.0/Examples.zip) - C# Server examples
+* CSharpServer.zip - C# Server assembly
+* Benchmarks.zip - C# Server benchmarks
+* Examples.zip - C# Server examples
