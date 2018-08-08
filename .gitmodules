@@ -1,0 +1,4 @@
+[submodule "modules/CppServer"]
+	path = modules/CppServer
+	url = https://github.com/chronoxor/CppServer.git
+	branch = master
