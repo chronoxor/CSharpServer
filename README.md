@@ -15,6 +15,15 @@ client/server solutions.
     * [Clone repository with submodules](#clone-repository-with-submodules)
     * [Generate CMake projects](#generate-cmake-projects)
     * [Windows (Visual Studio)](#windows-visual-studio)
+  * [Examples](#examples)
+    * [Example: TCP chat server](#example-tcp-chat-server)
+    * [Example: TCP chat client](#example-tcp-chat-client)
+    * [Example: SSL chat server](#example-ssl-chat-server)
+    * [Example: SSL chat client](#example-ssl-chat-client)
+    * [Example: UDP echo server](#example-udp-echo-server)
+    * [Example: UDP echo client](#example-udp-echo-client)
+    * [Example: UDP multicast server](#example-udp-multicast-server)
+    * [Example: UDP multicast client](#example-udp-multicast-client)
 
 # Features
 * [Asynchronous communication](https://think-async.com)
@@ -58,3 +67,965 @@ The build script will create "release" directory with zip files:
 * CSharpServer.zip - C# Server assembly
 * Benchmarks.zip - C# Server benchmarks
 * Examples.zip - C# Server examples
+
+# Examples
+
+## Example: TCP chat server
+Here comes the example of the TCP chat server. It handles multiple TCP client
+sessions and multicast received message from any session to all ones. Also it
+is possible to send admin message directly from the server.
+
+```c#
+using System;
+using System.Text;
+using CSharpServer;
+
+namespace TcpChatServer
+{
+    class ChatSession : TcpSession
+    {
+        public ChatSession(TcpServer server) : base(server) { }
+
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"Chat TCP session with Id {Id} connected!");
+
+            // Send invite message
+            string message = "Hello from TCP chat! Please send a message or '!' to disconnect the client!";
+            Send(message);
+        }
+
+        protected override void OnDisconnected()
+        {
+            Console.WriteLine($"Chat TCP session with Id {Id} disconnected!");
+        }
+
+        protected override void OnReceived(byte[] buffer)
+        {
+            string message = Encoding.UTF8.GetString(buffer);
+            Console.WriteLine("Incoming: " + message);
+
+            // Multicast message to all connected sessions
+            Server.Multicast(message);
+
+            // If the buffer starts with '!' the disconnect the current session
+            if (message == "!")
+                Disconnect();
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Chat TCP session caught an error with code {error} and category '{category}': {message}");
+        }
+    }
+
+    class ChatServer : TcpServer
+    {
+        public ChatServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+
+        protected override TcpSession CreateSession()
+        {
+            return new ChatSession(this);
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Chat TCP server caught an error with code {error} and category '{category}': {message}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // TCP server port
+            int port = 1111;
+            if (args.Length > 0)
+                port = int.Parse(args[0]);
+
+            Console.WriteLine($"TCP server port: {port}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create a new TCP chat server
+            var server = new ChatServer(service, InternetProtocol.IPv4, port);
+
+            // Start the server
+            Console.Write("Server starting...");
+            server.Start();
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Restart the server
+                if (line == "!")
+                {
+                    Console.Write("Server restarting...");
+                    server.Restart();
+                    Console.WriteLine("Done!");
+                    continue;
+                }
+
+                // Multicast admin message to all sessions
+                line = "(admin) " + line;
+                server.Multicast(line);
+            }
+
+            // Stop the server
+            Console.Write("Server stopping...");
+            server.Stop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+## Example: TCP chat client
+Here comes the example of the TCP chat client. It connects to the TCP chat
+server and allows to send message to it and receive new messages.
+
+```c#
+using System;
+using System.Text;
+using System.Threading;
+using CSharpServer;
+
+namespace TcpChatClient
+{
+    class ChatClient : TcpClient
+    {
+        public ChatClient(Service service, string address, int port) : base(service, address, port) {}
+
+        public void DisconnectAndStop()
+        {
+            _stop = true;
+            Disconnect();
+            while (IsConnected)
+                Thread.Yield();
+        }
+
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"Chat TCP client connected a new session with Id {Id}");
+        }
+
+        protected override void OnDisconnected()
+        {
+            Console.WriteLine($"Chat TCP client disconnected a session with Id {Id}");
+
+            // Wait for a while...
+            Thread.Sleep(1000);
+
+            // Try to connect again
+            if (!_stop)
+                Connect();
+        }
+
+        protected override void OnReceived(byte[] buffer)
+        {
+            Console.WriteLine(Encoding.UTF8.GetString(buffer));
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Chat TCP client caught an error with code {error} and category '{category}': {message}");
+        }
+
+        private bool _stop;
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // TCP server address
+            string address = "127.0.0.1";
+            if (args.Length > 0)
+                address = args[0];
+
+            // TCP server port
+            int port = 1111;
+            if (args.Length > 1)
+                port = int.Parse(args[1]);
+
+            Console.WriteLine($"TCP server address: {address}");
+            Console.WriteLine($"TCP server port: {port}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create a new TCP chat client
+            var client = new ChatClient(service, address, port);
+
+            // Connect the client
+            Console.Write("Client connecting...");
+            client.Connect();
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the client or '!' to reconnect the client...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Disconnect the client
+                if (line == "!")
+                {
+                    Console.Write("Client disconnecting...");
+                    client.Disconnect();
+                    Console.WriteLine("Done!");
+                    continue;
+                }
+
+                // Send the entered text to the chat server
+                client.Send(line);
+            }
+
+            // Disconnect the client
+            Console.Write("Client disconnecting...");
+            client.DisconnectAndStop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+## Example: SSL chat server
+Here comes the example of the SSL chat server. It handles multiple SSL client
+sessions and multicast received message from any session to all ones. Also it
+is possible to send admin message directly from the server.
+
+This example is very similar to the TCP one except the code that prepares SSL
+context and handshake handler.
+
+```c#
+using System;
+using System.Text;
+using CSharpServer;
+
+namespace SslChatServer
+{
+    class ChatSession : SslSession
+    {
+        public ChatSession(SslServer server) : base(server) { }
+
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"Chat SSL session with Id {Id} connected!");
+
+            // Send invite message
+            string message = "Hello from SSL chat! Please send a message or '!' to disconnect the client!";
+            Send(message);
+        }
+
+        protected override void OnDisconnected()
+        {
+            Console.WriteLine($"Chat SSL session with Id {Id} disconnected!");
+        }
+
+        protected override void OnReceived(byte[] buffer)
+        {
+            string message = Encoding.UTF8.GetString(buffer);
+            Console.WriteLine("Incoming: " + message);
+
+            // Multicast message to all connected sessions
+            Server.Multicast(message);
+
+            // If the buffer starts with '!' the disconnect the current session
+            if (message == "!")
+                Disconnect();
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Chat SSL session caught an error with code {error} and category '{category}': {message}");
+        }
+    }
+
+    class ChatServer : SslServer
+    {
+        public ChatServer(Service service, SslContext context, InternetProtocol protocol, int port) : base(service, context, protocol, port) {}
+
+        protected override SslSession CreateSession()
+        {
+            return new ChatSession(this);
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Chat SSL server caught an error with code {error} and category '{category}': {message}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // SSL server port
+            int port = 2222;
+            if (args.Length > 0)
+                port = int.Parse(args[0]);
+
+            Console.WriteLine($"SSL server port: {port}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create and prepare a new SSL server context
+            var context = new SslContext(SslMethod.TLSV12);
+            context.SetPassword("qwerty");
+            context.UseCertificateChainFile("../../../../Tools/certificates/server.pem");
+            context.UsePrivateKeyFile("../../../../Tools/certificates/server.pem", SslFileFormat.PEM);
+            context.UseTmpDHFile("../../../../Tools/certificates/dh4096.pem");
+
+            // Create a new SSL chat server
+            var server = new ChatServer(service, context, InternetProtocol.IPv4, port);
+
+            // Start the server
+            Console.Write("Server starting...");
+            server.Start();
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Restart the server
+                if (line == "!")
+                {
+                    Console.Write("Server restarting...");
+                    server.Restart();
+                    Console.WriteLine("Done!");
+                    continue;
+                }
+
+                // Multicast admin message to all sessions
+                line = "(admin) " + line;
+                server.Multicast(line);
+            }
+
+            // Stop the server
+            Console.Write("Server stopping...");
+            server.Stop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+## Example: SSL chat client
+Here comes the example of the SSL chat client. It connects to the SSL chat
+server and allows to send message to it and receive new messages.
+
+This example is very similar to the TCP one except the code that prepares SSL
+context and handshake handler.
+
+```c#
+using System;
+using System.Text;
+using System.Threading;
+using CSharpServer;
+
+namespace SslChatClient
+{
+    class ChatClient : SslClient
+    {
+        public ChatClient(Service service, SslContext context, string address, int port) : base(service, context, address, port) {}
+
+        public void DisconnectAndStop()
+        {
+            _stop = true;
+            Disconnect();
+            while (IsConnected)
+                Thread.Yield();
+        }
+
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"Chat SSL client connected a new session with Id {Id}");
+        }
+
+        protected override void OnDisconnected()
+        {
+            Console.WriteLine($"Chat SSL client disconnected a session with Id {Id}");
+
+            // Wait for a while...
+            Thread.Sleep(1000);
+
+            // Try to connect again
+            if (!_stop)
+                Connect();
+        }
+
+        protected override void OnReceived(byte[] buffer)
+        {
+            Console.WriteLine(Encoding.UTF8.GetString(buffer));
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Chat SSL client caught an error with code {error} and category '{category}': {message}");
+        }
+
+        private bool _stop;
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // SSL server address
+            string address = "127.0.0.1";
+            if (args.Length > 0)
+                address = args[0];
+
+            // SSL server port
+            int port = 2222;
+            if (args.Length > 1)
+                port = int.Parse(args[1]);
+
+            Console.WriteLine($"SSL server address: {address}");
+            Console.WriteLine($"SSL server port: {port}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create and prepare a new SSL client context
+            var context = new SslContext(SslMethod.TLSV12);
+            context.SetVerifyMode(SslVerifyMode.VerifyPeer);
+            context.LoadVerifyFile("../../../../Tools/certificates/ca.pem");
+
+            // Create a new SSL chat client
+            var client = new ChatClient(service, context, address, port);
+
+            // Connect the client
+            Console.Write("Client connecting...");
+            client.Connect();
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the client or '!' to reconnect the client...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Disconnect the client
+                if (line == "!")
+                {
+                    Console.Write("Client disconnecting...");
+                    client.Disconnect();
+                    Console.WriteLine("Done!");
+                    continue;
+                }
+
+                // Send the entered text to the chat server
+                client.Send(line);
+            }
+
+            // Disconnect the client
+            Console.Write("Client disconnecting...");
+            client.DisconnectAndStop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+## Example: UDP echo server
+Here comes the example of the UDP echo server. It receives a datagram mesage
+from any UDP client and resend it back without any changes.
+
+```c#
+using System;
+using System.Text;
+using CSharpServer;
+
+namespace UdpEchoServer
+{
+    class EchoServer : UdpServer
+    {
+        public EchoServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        {
+            Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer));
+
+            // Echo the message back to the sender
+            Send(endpoint, buffer);
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Echo UDP server caught an error with code {error} and category '{category}': {message}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // UDP server port
+            int port = 3333;
+            if (args.Length > 0)
+                port = int.Parse(args[0]);
+
+            Console.WriteLine($"UDP server port: {port}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create a new UDP echo server
+            var server = new EchoServer(service, InternetProtocol.IPv4, port);
+
+            // Start the server
+            Console.Write("Server starting...");
+            server.Start();
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Restart the server
+                if (line == "!")
+                {
+                    Console.Write("Server restarting...");
+                    server.Restart();
+                    Console.WriteLine("Done!");
+                }
+            }
+
+            // Stop the server
+            Console.Write("Server stopping...");
+            server.Stop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+## Example: UDP echo client
+Here comes the example of the UDP echo client. It sends user datagram message
+to UDP server and listen for response.
+
+```c#
+using System;
+using System.Text;
+using System.Threading;
+using CSharpServer;
+
+namespace UdpEchoClient
+{
+    class EchoClient : UdpClient
+    {
+        public EchoClient(Service service, string address, int port) : base(service, address, port) {}
+
+        public void DisconnectAndStop()
+        {
+            _stop = true;
+            Disconnect();
+            while (IsConnected)
+                Thread.Yield();
+        }
+
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"Echo UDP client connected a new session with Id {Id}");
+        }
+
+        protected override void OnDisconnected()
+        {
+            Console.WriteLine($"Echo UDP client disconnected a session with Id {Id}");
+
+            // Wait for a while...
+            Thread.Sleep(1000);
+
+            // Try to connect again
+            if (!_stop)
+                Connect();
+        }
+
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        {
+            Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer));
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Echo UDP client caught an error with code {error} and category '{category}': {message}");
+        }
+
+        private bool _stop;
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // UDP server address
+            string address = "127.0.0.1";
+            if (args.Length > 0)
+                address = args[0];
+
+            // UDP server port
+            int port = 3333;
+            if (args.Length > 1)
+                port = int.Parse(args[1]);
+
+            Console.WriteLine($"UDP server address: {address}");
+            Console.WriteLine($"UDP server port: {port}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create a new TCP chat client
+            var client = new EchoClient(service, address, port);
+
+            // Connect the client
+            Console.Write("Client connecting...");
+            client.Connect();
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the client or '!' to reconnect the client...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Disconnect the client
+                if (line == "!")
+                {
+                    Console.Write("Client disconnecting...");
+                    client.Disconnect();
+                    Console.WriteLine("Done!");
+                    continue;
+                }
+
+                // Send the entered text to the chat server
+                client.Send(line);
+            }
+
+            // Disconnect the client
+            Console.Write("Client disconnecting...");
+            client.DisconnectAndStop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+## Example: UDP multicast server
+Here comes the example of the UDP multicast server. It use multicast IP address
+to multicast datagram messages to all client that joined corresponding UDP
+multicast group.
+
+```c#
+using System;
+using System.Text;
+using CSharpServer;
+
+namespace UdpMulticastServer
+{
+    class MulticastServer : UdpServer
+    {
+        public MulticastServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Multicast UDP server caught an error with code {error} and category '{category}': {message}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // UDP multicast address
+            string multicastAddress = "239.255.0.1";
+            if (args.Length > 0)
+                multicastAddress = args[0];
+
+            // UDP multicast port
+            int multicastPort = 3334;
+            if (args.Length > 1)
+                multicastPort = int.Parse(args[1]);
+
+            Console.WriteLine($"UDP multicast address: {multicastAddress}");
+            Console.WriteLine($"UDP multicast port: {multicastPort}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create a new UDP multicast server
+            var server = new MulticastServer(service, InternetProtocol.IPv4, 0);
+
+            // Start the multicast server
+            Console.Write("Server starting...");
+            server.Start(multicastAddress, multicastPort);
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Restart the server
+                if (line == "!")
+                {
+                    Console.Write("Server restarting...");
+                    server.Restart();
+                    Console.WriteLine("Done!");
+                    continue;
+                }
+
+                // Multicast admin message to all sessions
+                line = "(admin) " + line;
+                server.Multicast(line);
+            }
+
+            // Stop the server
+            Console.Write("Server stopping...");
+            server.Stop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+## Example: UDP multicast client
+Here comes the example of the UDP multicast client. It use multicast IP address
+and joins UDP multicast group in order to receive multicasted datagram messages
+from UDP server.
+
+```c#
+using System;
+using System.Text;
+using System.Threading;
+using CSharpServer;
+
+namespace UdpMulticastClient
+{
+    class MulticastClient : UdpClient
+    {
+        public string Multicast;
+
+        public MulticastClient(Service service, string address, int port) : base(service, address, port) {}
+
+        public void DisconnectAndStop()
+        {
+            _stop = true;
+            Disconnect();
+            while (IsConnected)
+                Thread.Yield();
+        }
+
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"Multicast UDP client connected a new session with Id {Id}");
+
+            // Join UDP multicast group
+            JoinMulticastGroup(Multicast);
+        }
+
+        protected override void OnDisconnected()
+        {
+            Console.WriteLine($"Multicast UDP client disconnected a session with Id {Id}");
+
+            // Wait for a while...
+            Thread.Sleep(1000);
+
+            // Try to connect again
+            if (!_stop)
+                Connect();
+        }
+
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        {
+            Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer));
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Multicast UDP client caught an error with code {error} and category '{category}': {message}");
+        }
+
+        private bool _stop;
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // UDP listen address
+            string listenAddress = "0.0.0.0";
+            if (args.Length > 0)
+                listenAddress = args[0];
+
+            // UDP multicast address
+            string multicastAddress = "239.255.0.1";
+            if (args.Length > 1)
+                multicastAddress = args[1];
+
+            // UDP multicast port
+            int multicastPort = 3334;
+            if (args.Length > 2)
+                multicastPort = int.Parse(args[2]);
+
+            Console.WriteLine($"UDP listen address: {listenAddress}");
+            Console.WriteLine($"UDP multicast address: {multicastAddress}");
+            Console.WriteLine($"UDP multicast port: {multicastPort}");
+
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create a new TCP chat client
+            var client = new MulticastClient(service, listenAddress, multicastPort);
+            client.SetupMulticast(true);
+            client.Multicast = multicastAddress;
+
+            // Connect the client
+            Console.Write("Client connecting...");
+            client.Connect();
+            Console.WriteLine("Done!");
+
+            Console.WriteLine("Press Enter to stop the client or '!' to reconnect the client...");
+
+            // Perform text input
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (line == String.Empty)
+                    break;
+
+                // Disconnect the client
+                if (line == "!")
+                {
+                    Console.Write("Client disconnecting...");
+                    client.Disconnect();
+                    Console.WriteLine("Done!");
+                    continue;
+                }
+
+                // Send the entered text to the chat server
+                client.Send(line);
+            }
+
+            // Disconnect the client
+            Console.Write("Client disconnecting...");
+            client.DisconnectAndStop();
+            Console.WriteLine("Done!");
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
