@@ -91,9 +91,9 @@ namespace SslMulticastServer
             // Create and prepare a new SSL server context
             var context = new SslContext(SslMethod.TLSV12);
             context.SetPassword("qwerty");
-            context.UseCertificateChainFile("../../../../Tools/certificates/server.pem");
-            context.UsePrivateKeyFile("../../../../Tools/certificates/server.pem", SslFileFormat.PEM);
-            context.UseTmpDHFile("../../../../Tools/certificates/dh4096.pem");
+            context.UseCertificateChainFile("server.pem");
+            context.UsePrivateKeyFile("server.pem", SslFileFormat.PEM);
+            context.UseTmpDHFile("dh4096.pem");
 
             // Create a new echo server
             var server = new MulticastServer(service, context, InternetProtocol.IPv4, port);

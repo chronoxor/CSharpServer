@@ -75,7 +75,7 @@ namespace SslChatClient
             // Create and prepare a new SSL client context
             var context = new SslContext(SslMethod.TLSV12);
             context.SetVerifyMode(SslVerifyMode.VerifyPeer);
-            context.LoadVerifyFile("../../../../Tools/certificates/ca.pem");
+            context.LoadVerifyFile("ca.pem");
 
             // Create a new SSL chat client
             var client = new ChatClient(service, context, address, port);

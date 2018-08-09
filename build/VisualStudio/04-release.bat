@@ -16,6 +16,7 @@ xcopy /Y ..\..\examples\UdpEchoClient\bin\Release\*.* .
 xcopy /Y ..\..\examples\UdpEchoServer\bin\Release\*.* .
 xcopy /Y ..\..\examples\UdpMulticastClient\bin\Release\*.* .
 xcopy /Y ..\..\examples\UdpMulticastServer\bin\Release\*.* .
+xcopy /Y ..\..\tools\certificates\*.pem .
 7z a ..\Examples.zip *.*
 del /Q *.*
 cd ..
@@ -35,6 +36,7 @@ xcopy /Y ..\..\performance\UdpEchoClient\bin\Release\*.* .
 xcopy /Y ..\..\performance\UdpEchoServer\bin\Release\*.* .
 xcopy /Y ..\..\performance\UdpMulticastClient\bin\Release\*.* .
 xcopy /Y ..\..\performance\UdpMulticastServer\bin\Release\*.* .
+xcopy /Y ..\..\tools\certificates\*.pem .
 7z a ..\Benchmarks.zip *.*
 del /Q *.*
 cd ..
