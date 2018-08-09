@@ -8,7 +8,7 @@ namespace SslEchoClient
 {
     class EchoClient : SslClient
     {
-        public bool Connected { get; set; }
+        public bool Handshaked { get; set; }
 
         public EchoClient(Service service, SslContext context, string address, int port, int messages) : base(service, context, address, port)
         {
@@ -16,9 +16,9 @@ namespace SslEchoClient
             _messagesInput = messages;
         }
 
-        protected override void OnConnected()
+        protected override void OnHandshaked()
         {
-            Connected = true;
+            Handshaked = true;
             SendMessage();
         }
 
@@ -159,7 +159,7 @@ namespace SslEchoClient
             Console.WriteLine("Done!");
             foreach (var client in echoClients)
             {
-                while (!client.Connected)
+                while (!client.Handshaked)
                     Thread.Yield();
             }
             Console.WriteLine("All clients connected!");

@@ -8,9 +8,9 @@ namespace SslChatServer
     {
         public ChatSession(SslServer server) : base(server) { }
 
-        protected override void OnConnected()
+        protected override void OnHandshaked()
         {
-            Console.WriteLine($"Chat SSL session with Id {Id} connected!");
+            Console.WriteLine($"Chat SSL session with Id {Id} handshaked!");
 
             // Send invite message
             string message = "Hello from SSL chat! Please send a message or '!' to disconnect the client!";

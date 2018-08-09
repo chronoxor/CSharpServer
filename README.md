@@ -1128,12 +1128,12 @@ Message size: 32
 
 Errors: 0
 
-Round-trip time: 9.726 s
+Round-trip time: 7.201 s
 Total data: 30.530 MiB
 Total messages: 1000000
-Data throughput: 3.140 MiB/s
-Message latency: 9.726 mcs
-Message throughput: 102813 msg/s
+Data throughput: 4.243 MiB/s
+Message latency: 7.201 mcs
+Message throughput: 138858 msg/s
 ```
 
 * [SslEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoServer/Program.cs)
@@ -1148,12 +1148,12 @@ Message size: 32
 
 Errors: 0
 
-Round-trip time: 3.915 s
-Total data: 30.530 MiB
-Total messages: 1000000
-Data throughput: 7.812 MiB/s
-Message latency: 3.915 mcs
-Message throughput: 255379 msg/s
+Round-trip time: 4.365 s
+Total data: 30.328 MiB
+Total messages: 993547
+Data throughput: 6.968 MiB/s
+Message latency: 4.393 mcs
+Message throughput: 227600 msg/s
 ```
 
 ### UDP echo server
@@ -1258,12 +1258,12 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.008 s
-Total data: 173.746 MiB
-Total messages: 5692744
-Data throughput: 17.366 MiB/s
-Message latency: 1.758 mcs
-Message throughput: 568795 msg/s
+Multicast time: 10.011 s
+Total data: 458.031 MiB
+Total messages: 15008762
+Data throughput: 45.769 MiB/s
+Message latency: 667 ns
+Message throughput: 1499196 msg/s
 ```
 
 * [SslMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastServer/Program.cs)
@@ -1277,12 +1277,12 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.056 s
-Total data: 3.274 GiB
-Total messages: 109666039
-Data throughput: 332.818 MiB/s
-Message latency: 91 ns
-Message throughput: 10905174 msg/s
+Multicast time: 10.350 s
+Total data: 3.082 GiB
+Total messages: 103351505
+Data throughput: 304.726 MiB/s
+Message latency: 100 ns
+Message throughput: 9984724 msg/s
 ```
 
 ### UDP multicast server
