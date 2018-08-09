@@ -24,6 +24,15 @@ client/server solutions.
     * [Example: UDP echo client](#example-udp-echo-client)
     * [Example: UDP multicast server](#example-udp-multicast-server)
     * [Example: UDP multicast client](#example-udp-multicast-client)
+  * [Performance](#performance)
+    * [Benchmark: Round-Trip](#benchmark-round-trip)
+      * [TCP echo server](#tcp-echo-server)
+      * [SSL echo server](#ssl-echo-server)
+      * [UDP echo server](#udp-echo-server)
+    * [Benchmark: Multicast](#benchmark-multicast)
+      * [TCP multicast server](#tcp-multicast-server)
+      * [SSL multicast server](#ssl-multicast-server)
+      * [UDP multicast server](#udp-multicast-server)
   * [OpenSSL certificates](#openssl-certificates)
     * [Certificate Authority](#certificate-authority)
     * [SSL Server certificate](#ssl-server-certificate)
@@ -1033,6 +1042,267 @@ namespace UdpMulticastClient
         }
     }
 }
+```
+
+# Performance
+
+Here comes several communication scenarios with timing measurements.
+
+Benchmark environment is the following:
+```
+CPU architecutre: Intel(R) Core(TM) i7-4790K CPU @ 4.00GHz
+CPU logical cores: 8
+CPU physical cores: 4
+CPU clock speed: 3.998 GHz
+CPU Hyper-Threading: enabled
+RAM total: 31.962 GiB
+RAM free: 21.623 GiB
+
+OS version: Microsoft Windows 8 Enterprise Edition (build 9200), 64-bit
+OS bits: 64-bit
+Process bits: 64-bit
+Process configuaraion: release
+```
+
+## Benchmark: Round-Trip
+
+This scenario sends lots of messages from several clients to a server.
+The server responses to each message and resend the similar response to
+the client. The benchmark measures total Round-trip time to send all
+messages and receive all responses, messages & data throughput, count
+of errors.
+
+### TCP echo server
+
+* [TcpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoServer/Program.cs)
+* [TcpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoClient/Program.cs) -c 1 -m 1000000 -t 1
+```
+Server address: 127.0.0.1
+Server port: 1111
+Working threads: 1
+Working clients: 1
+Messages to send: 1000000
+Message size: 32
+
+Errors: 0
+
+Round-trip time: 3.893 s
+Total data: 30.530 MiB
+Total messages: 1000000
+Data throughput: 7.858 MiB/s
+Message latency: 3.893 mcs
+Message throughput: 256842 msg/s
+```
+
+* [TcpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoServer/Program.cs)
+* [TcpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoClient/Program.cs) -c 100 -m 1000000 -t 4
+```
+Server address: 127.0.0.1
+Server port: 1111
+Working threads: 4
+Working clients: 100
+Messages to send: 1000000
+Message size: 32
+
+Errors: 0
+
+Round-trip time: 1.557 s
+Total data: 30.518 MiB
+Total messages: 999632
+Data throughput: 19.597 MiB/s
+Message latency: 1.558 mcs
+Message throughput: 641705 msg/s
+```
+
+### SSL echo server
+
+* [SslEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoServer/Program.cs)
+* [SslEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoClient/Program.cs) -c 1 -m 1000000 -t 1
+```
+Server address: 127.0.0.1
+Server port: 2222
+Working threads: 1
+Working clients: 1
+Messages to send: 1000000
+Message size: 32
+
+Errors: 0
+
+
+```
+
+* [SslEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoServer/Program.cs)
+* [SslEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoClient/Program.cs) -c 100 -m 1000000 -t 4
+```
+Server address: 127.0.0.1
+Server port: 2222
+Working threads: 4
+Working clients: 100
+Messages to send: 1000000
+Message size: 32
+
+Errors: 0
+
+
+```
+
+### UDP echo server
+
+* [UdpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoServer/Program.cs)
+* [UdpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoClient/Program.cs) -c 1 -m 1000000 -t 1
+```
+Server address: 127.0.0.1
+Server port: 3333
+Working threads: 1
+Working clients: 1
+Messages to send: 1000000
+Message size: 32
+
+Errors: 0
+
+Round-trip time: 22.071 s
+Total data: 30.530 MiB
+Total messages: 1000000
+Data throughput: 1.391 MiB/s
+Message latency: 22.071 mcs
+Message throughput: 45306 msg/s
+```
+
+* [UdpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoServer/Program.cs)
+* [UdpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoClient/Program.cs) -c 100 -m 1000000 -t 4
+```
+Server address: 127.0.0.1
+Server port: 3333
+Working threads: 4
+Working clients: 100
+Messages to send: 1000000
+Message size: 32
+
+Errors: 0
+
+Round-trip time: 6.086 s
+Total data: 30.512 MiB
+Total messages: 999471
+Data throughput: 5.011 MiB/s
+Message latency: 6.090 mcs
+Message throughput: 164201 msg/s
+```
+
+## Benchmark: Multicast
+
+In this scenario server multicasts messages to all connected clients.
+The benchmark counts total messages received by all clients for all
+the working time and measures messages & data throughput, count
+of errors.
+
+### TCP multicast server
+
+* [TcpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastServer/Program.cs)
+* [TcpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastClient/Program.cs) -c 1 -t 1
+```
+Server address: 127.0.0.1
+Server port: 1111
+Working threads: 1
+Working clients: 1
+Message size: 32
+
+Errors: 0
+
+Multicast time: 10.002 s
+Total data: 970.554 MiB
+Total messages: 31802690
+Data throughput: 97.027 MiB/s
+Message latency: 314 ns
+Message throughput: 3179388 msg/s
+```
+
+* [TcpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastServer/Program.cs)
+* [TcpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastClient/Program.cs) -c 100 -t 4
+```
+Server address: 127.0.0.1
+Server port: 1111
+Working threads: 4
+Working clients: 100
+Message size: 32
+
+Errors: 0
+
+Multicast time: 10.007 s
+Total data: 3.442 GiB
+Total messages: 115147638
+Data throughput: 351.135 MiB/s
+Message latency: 86 ns
+Message throughput: 11505891 msg/s
+```
+
+### SSL multicast server
+
+* [SslMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastServer/Program.cs)
+* [SslMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastClient/Program.cs) -c 1 -t 1
+```
+Server address: 127.0.0.1
+Server port: 2222
+Working threads: 1
+Working clients: 1
+Message size: 32
+
+Errors: 0
+
+
+```
+
+* [SslMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastServer/Program.cs)
+* [SslMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastClient/Program.cs) -c 100 -t 4
+```
+Server address: 127.0.0.1
+Server port: 2222
+Working threads: 4
+Working clients: 100
+Message size: 32
+
+Errors: 0
+
+
+```
+
+### UDP multicast server
+
+* [UdpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastServer/Program.cs)
+* [UdpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastClient/Program.cs) -c 1 -t 1
+```
+Server address: 239.255.0.1
+Server port: 3333
+Working threads: 1
+Working clients: 1
+Message size: 32
+
+Errors: 0
+
+Multicast time: 10.004 s
+Total data: 19.644 MiB
+Total messages: 643205
+Data throughput: 1.985 MiB/s
+Message latency: 15.553 mcs
+Message throughput: 64292 msg/s
+```
+
+* [UdpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastServer/Program.cs)
+* [UdpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastClient/Program.cs) -c 100 -t 4
+```
+Server address: 239.255.0.1
+Server port: 3333
+Working threads: 4
+Working clients: 100
+Message size: 32
+
+Errors: 0
+
+Multicast time: 10.007 s
+Total data: 78.498 MiB
+Total messages: 2571847
+Data throughput: 7.862 MiB/s
+Message latency: 3.891 mcs
+Message throughput: 256982 msg/s
 ```
 
 # OpenSSL certificates
