@@ -8,10 +8,22 @@ namespace UdpEchoServer
     {
         public EchoServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
 
+        protected override void OnStarted()
+        {
+            // Start receive datagrams
+            Receive();
+        }
+
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
         {
             // Echo the message back to the sender
-            Send(endpoint, buffer);
+            SendAsync(endpoint, buffer);
+        }
+
+        protected override void OnSent(UdpEndpoint endpoint, long sent)
+        {
+            // Continue receive datagrams
+            Receive();
         }
 
         protected override void OnError(int error, string category, string message)

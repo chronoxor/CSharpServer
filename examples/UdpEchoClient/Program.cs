@@ -20,6 +20,9 @@ namespace UdpEchoClient
         protected override void OnConnected()
         {
             Console.WriteLine($"Echo UDP client connected a new session with Id {Id}");
+
+            // Start receive datagrams
+            Receive();
         }
 
         protected override void OnDisconnected()
@@ -37,6 +40,9 @@ namespace UdpEchoClient
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
         {
             Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer));
+
+            // Continue receive datagrams
+            Receive();
         }
 
         protected override void OnError(int error, string category, string message)
@@ -99,7 +105,7 @@ namespace UdpEchoClient
                 }
 
                 // Send the entered text to the chat server
-                client.Send(line);
+                client.SendSync(line);
             }
 
             // Disconnect the client

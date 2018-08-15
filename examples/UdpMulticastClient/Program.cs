@@ -25,6 +25,9 @@ namespace UdpMulticastClient
 
             // Join UDP multicast group
             JoinMulticastGroup(Multicast);
+
+            // Start receive datagrams
+            Receive();
         }
 
         protected override void OnDisconnected()
@@ -42,6 +45,9 @@ namespace UdpMulticastClient
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
         {
             Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer));
+
+            // Continue receive datagrams
+            Receive();
         }
 
         protected override void OnError(int error, string category, string message)
@@ -110,9 +116,6 @@ namespace UdpMulticastClient
                     Console.WriteLine("Done!");
                     continue;
                 }
-
-                // Send the entered text to the chat server
-                client.Send(line);
             }
 
             // Disconnect the client

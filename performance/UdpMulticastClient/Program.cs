@@ -22,11 +22,17 @@ namespace UdpMulticastClient
 
             // Join UDP multicast group
             JoinMulticastGroup(Multicast);
+
+            // Start receive datagrams
+            Receive();
         }
 
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
         {
             Program.TotalBytes += buffer.Length;
+
+            // Continue receive datagrams
+            Receive();
         }
 
         protected override void OnError(int error, string category, string message)

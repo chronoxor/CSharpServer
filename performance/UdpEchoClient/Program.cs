@@ -18,6 +18,10 @@ namespace UdpEchoClient
         protected override void OnConnected()
         {
             Connected = true;
+
+            // Start receive datagrams
+            Receive();
+
             SendMessage();
         }
 
@@ -26,6 +30,9 @@ namespace UdpEchoClient
             Program.TimestampStop = DateTime.UtcNow;
             Program.TotalBytes += buffer.Length;
             ++Program.TotalMessages;
+
+            // Continue receive datagrams
+            Receive();
 
             SendMessage();
         }
@@ -39,7 +46,7 @@ namespace UdpEchoClient
         private void SendMessage()
         {
             if (_messages-- > 0)
-                Send(Program.MessageToSend);
+                SendSync(Program.MessageToSend);
             else
                 Disconnect();
         }
