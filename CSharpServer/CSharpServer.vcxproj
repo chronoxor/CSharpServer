@@ -97,6 +97,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TcpClient.h" />
     <ClInclude Include="TcpServer.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="UdpClient.h" />
     <ClInclude Include="UdpServer.h" />
   </ItemGroup>
@@ -113,6 +114,7 @@
     </ClCompile>
     <ClCompile Include="TcpClient.cpp" />
     <ClCompile Include="TcpServer.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UdpClient.cpp" />
     <ClCompile Include="UdpServer.cpp" />
   </ItemGroup>

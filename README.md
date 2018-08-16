@@ -16,6 +16,7 @@ client/server solutions.
     * [Generate CMake projects](#generate-cmake-projects)
     * [Windows (Visual Studio)](#windows-visual-studio)
   * [Examples](#examples)
+    * [Example: Asio timer](#example-asio-timer)
     * [Example: TCP chat server](#example-tcp-chat-server)
     * [Example: TCP chat client](#example-tcp-chat-client)
     * [Example: SSL chat server](#example-ssl-chat-server)
@@ -83,6 +84,88 @@ The build script will create "release" directory with zip files:
 * Examples.zip - C# Server examples
 
 # Examples
+
+## Example: Asio timer
+Here comes the example of Asio timer. It can be used to wait for some action
+in future with providing absolute time or relative time span. Asio timer can
+be used in synchronous or asynchronous modes.
+```c#
+using System;
+using System.Threading;
+using CSharpServer;
+
+namespace AsioTimer
+{
+    class AsioTimer : CSharpServer.Timer
+    {
+        public AsioTimer(Service service) : base(service) {}
+
+        protected override void OnTimer(bool canceled)
+        {
+            Console.WriteLine("Asio timer " + (canceled ? "canceled" : "expired"));
+        }
+
+        protected override void OnError(int error, string category, string message)
+        {
+            Console.WriteLine($"Asio timer caught an error with code {error} and category '{category}': {message}");
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            // Create a new service
+            var service = new Service();
+
+            // Start the service
+            Console.Write("Service starting...");
+            service.Start();
+            Console.WriteLine("Done!");
+
+            // Create a new Asio timer
+            var timer = new AsioTimer(service);
+
+            // Setup and synchronously wait for the timer
+            timer.Setup(DateTime.UtcNow.AddSeconds(1));
+            timer.WaitSync();
+
+            // Setup and asynchronously wait for the timer
+            timer.Setup(TimeSpan.FromSeconds(1));
+            timer.WaitAsync();
+
+            // Wait for a while...
+            Thread.Sleep(2000);
+
+            // Setup and asynchronously wait for the timer
+            timer.Setup(TimeSpan.FromSeconds(1));
+            timer.WaitAsync();
+
+            // Wait for a while...
+            Thread.Sleep(500);
+
+            // Cancel the timer
+            timer.Cancel();
+
+            // Wait for a while...
+            Thread.Sleep(500);
+
+            // Stop the service
+            Console.Write("Service stopping...");
+            service.Stop();
+            Console.WriteLine("Done!");
+        }
+    }
+}
+```
+
+Output of the above example is the following:
+```
+Service starting...Done!
+Asio timer expired
+Asio timer canceled
+Service stopping...Done!
+```
 
 ## Example: TCP chat server
 Here comes the example of the TCP chat server. It handles multiple TCP client
