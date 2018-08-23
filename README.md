@@ -49,15 +49,15 @@ client/server solutions.
 # Requirements
 * Windows 7 / Windows 10
 * [7-Zip](https://www.7-zip.org)
-* [CMake](https://www.cmake.org)
-* [GIT](https://git-scm.com)
+* [cmake](https://www.cmake.org)
+* [git](https://git-scm.com)
 * [Visual Studio](https://www.visualstudio.com)
 
 # How to build?
 
 ## Clone repository with submodules
 ```shell
-git clone https://github.com/chronoxor/CSharpServer.git CSharpServer
+git clone https://github.com/chronoxor/CSharpServer.git
 cd CSharpServer
 git submodule update --init --recursive --remote
 ```
