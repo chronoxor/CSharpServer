@@ -1149,6 +1149,8 @@ Process configuaraion: release
 
 ## Benchmark: Round-Trip
 
+![Round-trip](https://github.com/chronoxor/CSharpServer/raw/master/images/round-trip.png)
+
 This scenario sends lots of messages from several clients to a server.
 The server responses to each message and resend the similar response to
 the client. The benchmark measures total Round-trip time to send all
@@ -1288,6 +1290,8 @@ Message throughput: 164201 msg/s
 ```
 
 ## Benchmark: Multicast
+
+![Multicast](https://github.com/chronoxor/CSharpServer/raw/master/images/multicast.png)
 
 In this scenario server multicasts messages to all connected clients.
 The benchmark counts total messages received by all clients for all
