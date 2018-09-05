@@ -12,9 +12,6 @@ client/server solutions.
   * [Features](#features)
   * [Requirements](#requirements)
   * [How to build?](#how-to-build)
-    * [Clone repository with submodules](#clone-repository-with-submodules)
-    * [Generate CMake projects](#generate-cmake-projects)
-    * [Windows (Visual Studio)](#windows-visual-studio)
   * [Examples](#examples)
     * [Example: Asio timer](#example-asio-timer)
     * [Example: TCP chat server](#example-tcp-chat-server)
@@ -55,14 +52,14 @@ client/server solutions.
 
 # How to build?
 
-## Clone repository with submodules
+### Clone repository with submodules
 ```shell
 git clone https://github.com/chronoxor/CSharpServer.git
 cd CSharpServer
 git submodule update --init --recursive --remote
 ```
 
-## Generate CMake projects
+### Generate CMake projects
 Run CMake script to generate C++ projects:
 
 ```shell
@@ -70,7 +67,7 @@ cd modules/CppServer/build/VisualStudio
 01-generate.bat
 ```
 
-## Windows (Visual Studio)
+### Windows (Visual Studio)
 Open and build CSharpServer.sln or run the build script:
 
 ```shell
