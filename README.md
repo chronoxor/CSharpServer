@@ -3,7 +3,7 @@
 [![Windows build status](https://img.shields.io/appveyor/ci/chronoxor/CSharpServer/master.svg?label=Windows)](https://ci.appveyor.com/project/chronoxor/CSharpServer)
 
 Ultra fast and low latency asynchronous C# Server & Client library which
-supports TCP, SSL, UDP protocols and solves [10K connection problem](http://www.kegel.com/c10k.html).
+supports TCP, SSL, UDP protocols.
 
 [CSharpServer documentation](https://chronoxor.github.io/CSharpServer)<br/>
 [CSharpServer downloads](https://github.com/chronoxor/CSharpServer/releases)<br/>
