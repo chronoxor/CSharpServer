@@ -49,15 +49,16 @@ solution.
 * [7-Zip](https://www.7-zip.org)
 * [cmake](https://www.cmake.org)
 * [git](https://git-scm.com)
+* [gil](https://github.com/chronoxor/gil.git)
 * [Visual Studio](https://www.visualstudio.com)
 
 # How to build?
 
-### Clone repository with submodules
+### Setup repository with [gil (git links) tool](https://github.com/chronoxor/gil#setup)
 ```shell
 git clone https://github.com/chronoxor/CSharpServer.git
 cd CSharpServer
-git submodule update --init --recursive --remote
+gil update
 ```
 
 ### Generate CMake projects
