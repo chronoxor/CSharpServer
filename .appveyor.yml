@@ -29,15 +29,14 @@ install:
   # Chocolatey
   - choco upgrade chocolatey
   # Visual Studio
-  - if "%type%"=="VisualStudio" set PATH=C:\Program Files\MiKTeX 2.9\miktex\bin\x64;C:\Program Files\gs\gs9.22\bin;%PATH%
-  - if "%type%"=="VisualStudio" set INCLUDE=C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.17134.0\shared;%INCLUDE%
-  - if "%type%"=="VisualStudio" set LIB=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64;%LIB%
-  # git
+  - if "%type%"=="VisualStudio" set INCLUDE=C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared;%INCLUDE%
+  - if "%type%"=="VisualStudio" set LIB=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17763.0\um\x64;%LIB%
+  # CMake
   - '%command% "cmake --version"'
-  - '%command% "git config --global user.name "AppVeyor""'
-  - '%command% "git config --global user.email "team@appveyor.com""'
-  - '%command% "git config --global push.default simple"'
-  - git submodule update --init --recursive --remote
+  # gil
+  - set PATH=C:\Python37;%PATH%
+  - git clone https://github.com/chronoxor/gil.git"
+  - gil\gil.bat update
 
 # Build scripts
 build_script:
