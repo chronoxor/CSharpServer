@@ -45,7 +45,7 @@ solution.
   [UDP](#example-udp-echo-server), [UDP multicast](#example-udp-multicast-server)
 
 # Requirements
-* Windows 7 / Windows 10
+* Windows 10
 * [7-Zip](https://www.7-zip.org)
 * [cmake](https://www.cmake.org)
 * [git](https://git-scm.com)
