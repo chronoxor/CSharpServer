@@ -51,7 +51,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CSharpServer\CSharpServer.vcxproj">
+    <ProjectReference Include="..\..\source\CSharpServer\CSharpServer.vcxproj">
       <Project>{d35f3635-1aa3-40f2-a5b2-c83db7d658d2}</Project>
       <Name>CSharpServer</Name>
     </ProjectReference>

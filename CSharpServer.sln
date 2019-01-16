@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSharpServer", "CSharpServer\CSharpServer.vcxproj", "{D35F3635-1AA3-40F2-A5B2-C83DB7D658D2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSharpServer", "source\CSharpServer\CSharpServer.vcxproj", "{D35F3635-1AA3-40F2-A5B2-C83DB7D658D2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{367D2B7D-9584-3012-8ABC-7F6EFAEE2815} = {367D2B7D-9584-3012-8ABC-7F6EFAEE2815}
 		{40E2C4EA-F430-317A-8B37-97FF73B39C16} = {40E2C4EA-F430-317A-8B37-97FF73B39C16}

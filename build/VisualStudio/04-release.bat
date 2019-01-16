@@ -1,8 +1,8 @@
 mkdir ..\..\release
 cd ..\..\release
 
-xcopy /Y ..\CSharpServer\bin\Release\CSharpServer.dll .
-xcopy /Y ..\CSharpServer\bin\Release\CSharpServer.pdb .
+xcopy /Y ..\source\CSharpServer\bin\Release\CSharpServer.dll .
+xcopy /Y ..\source\CSharpServer\bin\Release\CSharpServer.pdb .
 7z a CSharpServer.zip CSharpServer.dll CSharpServer.pdb
 del /Q CSharpServer.dll CSharpServer.pdb
 
