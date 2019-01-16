@@ -98,7 +98,7 @@ using CSharpServer;
 
 namespace AsioTimer
 {
-    class AsioTimer : CSharpServer.Timer
+    class AsioTimer : Timer
     {
         public AsioTimer(Service service) : base(service) {}
 
