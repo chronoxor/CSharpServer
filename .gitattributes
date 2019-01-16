@@ -1,7 +1,7 @@
-CSharpServer/* linguist-vendored
 build/* linguist-vendored
 images/* linguist-vendored
 modules/* linguist-vendored
 packages/* linguist-vendored
 release/* linguist-vendored
+source/CSharpServer/* linguist-vendored
 tools/* linguist-vendored

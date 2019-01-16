@@ -68,7 +68,6 @@ gil update
 
 ### Generate CMake projects
 Run CMake script to generate C++ projects:
-
 ```shell
 cd modules/CppServer/build/VisualStudio
 01-generate.bat
@@ -76,7 +75,6 @@ cd modules/CppServer/build/VisualStudio
 
 ### Windows (Visual Studio)
 Open and build CSharpServer.sln or run the build script:
-
 ```shell
 cd build
 vs.bat
