@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{D35F3635-1AA3-40F2-A5B2-C83DB7D658D2}</ProjectGuid>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>CSharpServer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\obj\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\obj\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CRT_SECURE_NO_DEPRECATE;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;_WIN32_WINNT=0x0A00;CRYPT_SUPPORT;WINSOCK_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\..\modules\CppServer\modules;..\..\modules\CppServer\modules\CppCommon\include;..\..\modules\CppServer\modules\CppCommon\modules\fmt;..\..\modules\CppServer\modules\CppCommon\modules\vld;..\..\modules\CppServer\include;..\..\modules\CppServer\modules\asio\asio\include;..\..\modules\CppServer\modules\openssl\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4575;4793</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>..\..\modules\CppServer\modules\openssl\Win64\lib\libssl.lib;..\..\modules\CppServer\modules\openssl\Win64\lib\libcrypto.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\Crypt32.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\MsWSock.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\WS2_32.Lib;..\..\modules\CppServer\temp\modules\CppCommon\Debug\cppcommon.lib;..\..\modules\CppServer\temp\Debug\cppserver.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\DbgHelp.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\RpcRT4.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\UserEnv.Lib;..\..\modules\CppServer\temp\modules\CppCommon\modules\Debug\fmt.lib;..\..\modules\CppServer\temp\modules\Debug\asio.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_DEPRECATE;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;_WIN32_WINNT=0x0A00;CRYPT_SUPPORT;WINSOCK_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\..\modules\CppServer\modules;..\..\modules\CppServer\modules\CppCommon\include;..\..\modules\CppServer\modules\CppCommon\modules\fmt;..\..\modules\CppServer\modules\CppCommon\modules\vld;..\..\modules\CppServer\include;..\..\modules\CppServer\modules\asio\asio\include;..\..\modules\CppServer\modules\openssl\Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4575;4793</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>..\..\modules\CppServer\modules\openssl\Win64\lib\libssl.lib;..\..\modules\CppServer\modules\openssl\Win64\lib\libcrypto.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\Crypt32.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\MsWSock.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\WS2_32.Lib;..\..\modules\CppServer\temp\modules\CppCommon\RelWithDebInfo\cppcommon.lib;..\..\modules\CppServer\temp\RelWithDebInfo\cppserver.lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\DbgHelp.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\RpcRT4.Lib;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.17134.0\um\x64\UserEnv.Lib;..\..\modules\CppServer\temp\modules\CppCommon\modules\RelWithDebInfo\fmt.lib;..\..\modules\CppServer\temp\modules\RelWithDebInfo\asio.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Embedded.h" />
+    <ClInclude Include="Endpoint.h" />
+    <ClInclude Include="Protocol.h" />
+    <ClInclude Include="Service.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SslClient.h" />
+    <ClInclude Include="SslContext.h" />
+    <ClInclude Include="SslServer.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TcpClient.h" />
+    <ClInclude Include="TcpServer.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="UdpClient.h" />
+    <ClInclude Include="UdpServer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Endpoint.cpp" />
+    <ClCompile Include="Service.cpp" />
+    <ClCompile Include="SslClient.cpp" />
+    <ClCompile Include="SslContext.cpp" />
+    <ClCompile Include="SslServer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TcpClient.cpp" />
+    <ClCompile Include="TcpServer.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UdpClient.cpp" />
+    <ClCompile Include="UdpServer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="app.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
