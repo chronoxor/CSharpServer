@@ -110,7 +110,7 @@ namespace UdpMulticastServer
             for (;;)
             {
                 string line = Console.ReadLine();
-                if (line == String.Empty)
+                if (line == string.Empty)
                     break;
 
                 // Restart the server

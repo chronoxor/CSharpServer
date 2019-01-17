@@ -91,7 +91,7 @@ namespace SslChatClient
             for (;;)
             {
                 string line = Console.ReadLine();
-                if (line == String.Empty)
+                if (line == string.Empty)
                     break;
 
                 // Disconnect the client
