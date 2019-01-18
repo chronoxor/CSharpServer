@@ -14,12 +14,12 @@ namespace UdpEchoServer
             Receive();
         }
 
-        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
         {
-            Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer));
+            Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer, 0, (int)size));
 
             // Echo the message back to the sender
-            SendAsync(endpoint, buffer);
+            SendAsync(endpoint, buffer, 0, size);
         }
 
         protected override void OnSent(UdpEndpoint endpoint, long sent)

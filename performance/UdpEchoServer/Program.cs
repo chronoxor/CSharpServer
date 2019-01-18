@@ -14,10 +14,10 @@ namespace UdpEchoServer
             Receive();
         }
 
-        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
         {
             // Echo the message back to the sender
-            SendAsync(endpoint, buffer);
+            SendAsync(endpoint, buffer, 0, size);
         }
 
         protected override void OnSent(UdpEndpoint endpoint, long sent)

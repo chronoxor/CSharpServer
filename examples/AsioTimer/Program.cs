@@ -4,7 +4,7 @@ using CSharpServer;
 
 namespace AsioTimer
 {
-    class AsioTimer : Timer
+    class AsioTimer : CSharpServer.Timer
     {
         public AsioTimer(Service service) : base(service) {}
 

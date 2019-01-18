@@ -37,9 +37,9 @@ namespace UdpEchoClient
                 Connect();
         }
 
-        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
         {
-            Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer));
+            Console.WriteLine("Incoming: " + Encoding.UTF8.GetString(buffer, 0, (int)size));
 
             // Continue receive datagrams
             Receive();

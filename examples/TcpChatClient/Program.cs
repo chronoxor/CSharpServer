@@ -34,9 +34,9 @@ namespace TcpChatClient
                 Connect();
         }
 
-        protected override void OnReceived(byte[] buffer)
+        protected override void OnReceived(byte[] buffer, long size)
         {
-            Console.WriteLine(Encoding.UTF8.GetString(buffer));
+            Console.WriteLine(Encoding.UTF8.GetString(buffer, 0, (int)size));
         }
 
         protected override void OnError(int error, string category, string message)

@@ -19,9 +19,9 @@ namespace SslMulticastClient
             Handshaked = true;
         }
 
-        protected override void OnReceived(byte[] buffer)
+        protected override void OnReceived(byte[] buffer, long size)
         {
-            Program.TotalBytes += buffer.Length;
+            Program.TotalBytes += size;
         }
 
         protected override void OnError(int error, string category, string message)

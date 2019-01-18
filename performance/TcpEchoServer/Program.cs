@@ -8,10 +8,10 @@ namespace TcpEchoServer
     {
         public EchoSession(TcpServer server) : base(server) { }
 
-        protected override void OnReceived(byte[] buffer)
+        protected override void OnReceived(byte[] buffer, long size)
         {
             // Resend the message back to the client
-            Send(buffer);
+            Send(buffer, 0, size);
         }
 
         protected override void OnError(int error, string category, string message)

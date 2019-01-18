@@ -22,9 +22,9 @@ namespace SslChatServer
             Console.WriteLine($"Chat SSL session with Id {Id} disconnected!");
         }
 
-        protected override void OnReceived(byte[] buffer)
+        protected override void OnReceived(byte[] buffer, long size)
         {
-            string message = Encoding.UTF8.GetString(buffer);
+            string message = Encoding.UTF8.GetString(buffer, 0, (int)size);
             Console.WriteLine("Incoming: " + message);
 
             // Multicast message to all connected sessions

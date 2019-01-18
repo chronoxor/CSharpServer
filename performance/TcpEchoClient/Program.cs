@@ -32,9 +32,9 @@ namespace TcpEchoClient
             }
         }
 
-        protected override void OnReceived(byte[] buffer)
+        protected override void OnReceived(byte[] buffer, long size)
         {
-            _received += buffer.Length;
+            _received += size;
             while (_received >= Program.MessageToSend.Length)
             {
                 ReceiveMessage();
@@ -42,7 +42,7 @@ namespace TcpEchoClient
             }
 
             Program.TimestampStop = DateTime.UtcNow;
-            Program.TotalBytes += buffer.Length;
+            Program.TotalBytes += size;
         }
 
         protected override void OnError(int error, string category, string message)

@@ -27,9 +27,9 @@ namespace UdpMulticastClient
             Receive();
         }
 
-        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
         {
-            Program.TotalBytes += buffer.Length;
+            Program.TotalBytes += size;
 
             // Continue receive datagrams
             Receive();

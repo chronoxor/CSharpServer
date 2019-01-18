@@ -25,10 +25,10 @@ namespace UdpEchoClient
             SendMessage();
         }
 
-        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer)
+        protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
         {
             Program.TimestampStop = DateTime.UtcNow;
-            Program.TotalBytes += buffer.Length;
+            Program.TotalBytes += size;
             ++Program.TotalMessages;
 
             // Continue receive datagrams
