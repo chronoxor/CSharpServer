@@ -8,7 +8,7 @@ namespace SslMulticastServer
 {
     class MulticastSession : SslSession
     {
-        public MulticastSession(SslServer server) : base(server) { }
+        public MulticastSession(SslServer server) : base(server) {}
 
         protected override bool OnSending(long size)
         {

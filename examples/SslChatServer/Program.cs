@@ -6,7 +6,7 @@ namespace SslChatServer
 {
     class ChatSession : SslSession
     {
-        public ChatSession(SslServer server) : base(server) { }
+        public ChatSession(SslServer server) : base(server) {}
 
         protected override void OnHandshaked()
         {

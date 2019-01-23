@@ -6,7 +6,7 @@ namespace SslEchoServer
 {
     class EchoSession : SslSession
     {
-        public EchoSession(SslServer server) : base(server) { }
+        public EchoSession(SslServer server) : base(server) {}
 
         protected override void OnReceived(byte[] buffer, long size)
         {

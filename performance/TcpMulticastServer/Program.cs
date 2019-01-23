@@ -8,7 +8,7 @@ namespace TcpMulticastServer
 {
     class MulticastSession : TcpSession
     {
-        public MulticastSession(TcpServer server) : base(server) { }
+        public MulticastSession(TcpServer server) : base(server) {}
 
         protected override bool OnSending(long size)
         {
