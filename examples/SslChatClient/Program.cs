@@ -22,6 +22,11 @@ namespace SslChatClient
             Console.WriteLine($"Chat SSL client connected a new session with Id {Id}");
         }
 
+        protected override void OnHandshaked()
+        {
+            Console.WriteLine($"Chat SSL client handshaked a new session with Id {Id}");
+        }
+
         protected override void OnDisconnected()
         {
             Console.WriteLine($"Chat SSL client disconnected a session with Id {Id}");

@@ -8,6 +8,11 @@ namespace SslChatServer
     {
         public ChatSession(SslServer server) : base(server) {}
 
+        protected override void OnConnected()
+        {
+            Console.WriteLine($"Chat SSL session with Id {Id} connected!");
+        }
+
         protected override void OnHandshaked()
         {
             Console.WriteLine($"Chat SSL session with Id {Id} handshaked!");
