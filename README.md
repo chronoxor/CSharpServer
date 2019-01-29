@@ -1174,12 +1174,12 @@ Message size: 32
 
 Errors: 0
 
-Round-trip time: 3.893 s
+Round-trip time: 3.327 s
 Total data: 30.530 MiB
 Total messages: 1000000
-Data throughput: 7.858 MiB/s
-Message latency: 3.893 mcs
-Message throughput: 256842 msg/s
+Data throughput: 9.175 MiB/s
+Message latency: 3.327 mcs
+Message throughput: 300543 msg/s
 ```
 
 * [TcpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoServer/Program.cs)
@@ -1195,12 +1195,12 @@ Message size: 32
 
 Errors: 0
 
-Round-trip time: 1.557 s
-Total data: 30.518 MiB
-Total messages: 999632
-Data throughput: 19.597 MiB/s
-Message latency: 1.558 mcs
-Message throughput: 641705 msg/s
+Round-trip time: 1.423 s
+Total data: 30.519 MiB
+Total messages: 999670
+Data throughput: 21.449 MiB/s
+Message latency: 1.423 mcs
+Message throughput: 702501 msg/s
 ```
 
 ### SSL echo server
@@ -1218,12 +1218,12 @@ Message size: 32
 
 Errors: 0
 
-Round-trip time: 7.201 s
+Round-trip time: 5.775 s
 Total data: 30.530 MiB
 Total messages: 1000000
-Data throughput: 4.243 MiB/s
-Message latency: 7.201 mcs
-Message throughput: 138858 msg/s
+Data throughput: 5.290 MiB/s
+Message latency: 5.775 mcs
+Message throughput: 173150 msg/s
 ```
 
 * [SslEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoServer/Program.cs)
@@ -1239,12 +1239,12 @@ Message size: 32
 
 Errors: 0
 
-Round-trip time: 4.365 s
-Total data: 30.328 MiB
-Total messages: 993547
-Data throughput: 6.968 MiB/s
-Message latency: 4.393 mcs
-Message throughput: 227600 msg/s
+Round-trip time: 3.442 s
+Total data: 30.282 MiB
+Total messages: 992087
+Data throughput: 8.813 MiB/s
+Message latency: 3.470 mcs
+Message throughput: 288166 msg/s
 ```
 
 ### UDP echo server
@@ -1314,12 +1314,12 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.002 s
-Total data: 970.554 MiB
-Total messages: 31802690
-Data throughput: 97.027 MiB/s
-Message latency: 314 ns
-Message throughput: 3179388 msg/s
+Multicast time: 10.003 s
+Total data: 1.837 GiB
+Total messages: 60986476
+Data throughput: 186.046 MiB/s
+Message latency: 164 ns
+Message throughput: 6096342 msg/s
 ```
 
 * [TcpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastServer/Program.cs)
@@ -1334,12 +1334,12 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.007 s
-Total data: 3.442 GiB
-Total messages: 115147638
-Data throughput: 351.135 MiB/s
-Message latency: 86 ns
-Message throughput: 11505891 msg/s
+Multicast time: 10.008 s
+Total data: 3.506 GiB
+Total messages: 117258964
+Data throughput: 357.557 MiB/s
+Message latency: 85 ns
+Message throughput: 11716022 msg/s
 ```
 
 ### SSL multicast server
@@ -1356,12 +1356,12 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.011 s
-Total data: 458.031 MiB
-Total messages: 15008762
-Data throughput: 45.769 MiB/s
-Message latency: 667 ns
-Message throughput: 1499196 msg/s
+Multicast time: 10.013 s
+Total data: 1.394 GiB
+Total messages: 46488464
+Data throughput: 141.694 MiB/s
+Message latency: 215 ns
+Message throughput: 4642509 msg/s
 ```
 
 * [SslMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastServer/Program.cs)
@@ -1376,12 +1376,12 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.350 s
-Total data: 3.082 GiB
-Total messages: 103351505
-Data throughput: 304.726 MiB/s
-Message latency: 100 ns
-Message throughput: 9984724 msg/s
+Multicast time: 10.276 s
+Total data: 3.387 GiB
+Total messages: 113363191
+Data throughput: 336.661 MiB/s
+Message latency: 90 ns
+Message throughput: 11031227 msg/s
 ```
 
 ### UDP multicast server
@@ -1398,12 +1398,12 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.004 s
-Total data: 19.644 MiB
-Total messages: 643205
-Data throughput: 1.985 MiB/s
-Message latency: 15.553 mcs
-Message throughput: 64292 msg/s
+Multicast time: 10.003 s
+Total data: 20.229 MiB
+Total messages: 662719
+Data throughput: 2.022 MiB/s
+Message latency: 15.094 mcs
+Message throughput: 66248 msg/s
 ```
 
 * [UdpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastServer/Program.cs)
