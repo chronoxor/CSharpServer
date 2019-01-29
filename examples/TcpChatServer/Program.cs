@@ -45,10 +45,7 @@ namespace TcpChatServer
     {
         public ChatServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
 
-        protected override TcpSession CreateSession()
-        {
-            return new ChatSession(this);
-        }
+        protected override TcpSession CreateSession() { return new ChatSession(this); }
 
         protected override void OnError(int error, string category, string message)
         {

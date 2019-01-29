@@ -24,10 +24,7 @@ namespace SslEchoServer
     {
         public EchoServer(Service service, SslContext context, InternetProtocol protocol, int port) : base(service, context, protocol, port) {}
 
-        protected override SslSession CreateSession()
-        {
-            return new EchoSession(this);
-        }
+        protected override SslSession CreateSession() { return new EchoSession(this); }
 
         protected override void OnError(int error, string category, string message)
         {

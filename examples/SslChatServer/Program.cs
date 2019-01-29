@@ -50,10 +50,7 @@ namespace SslChatServer
     {
         public ChatServer(Service service, SslContext context, InternetProtocol protocol, int port) : base(service, context, protocol, port) {}
 
-        protected override SslSession CreateSession()
-        {
-            return new ChatSession(this);
-        }
+        protected override SslSession CreateSession() { return new ChatSession(this); }
 
         protected override void OnError(int error, string category, string message)
         {

@@ -26,10 +26,7 @@ namespace TcpMulticastServer
     {
         public MulticastServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
 
-        protected override TcpSession CreateSession()
-        {
-            return new MulticastSession(this);
-        }
+        protected override TcpSession CreateSession() { return new MulticastSession(this); }
 
         protected override void OnError(int error, string category, string message)
         {
