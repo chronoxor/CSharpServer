@@ -74,7 +74,7 @@ cd modules/CppServer/build/VisualStudio
 ```
 
 ### Windows (Visual Studio)
-Open and build CSharpServer.sln or run the build script:
+Open and build [CSharpServer.sln](https://github.com/chronoxor/CSharpServer/blob/master/CSharpServer.sln) or run the build script:
 ```shell
 cd build
 vs.bat
