@@ -14,7 +14,7 @@ namespace TcpChatServer
 
             // Send invite message
             string message = "Hello from TCP chat! Please send a message or '!' to disconnect the client!";
-            Send(message);
+            SendAsync(message);
         }
 
         protected override void OnDisconnected()
@@ -32,7 +32,7 @@ namespace TcpChatServer
 
             // If the buffer starts with '!' the disconnect the current session
             if (message == "!")
-                Disconnect();
+                DisconnectAsync();
         }
 
         protected override void OnError(int error, string category, string message)

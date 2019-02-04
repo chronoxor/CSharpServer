@@ -114,7 +114,7 @@ namespace SslMulticastClient
             // Connect clients
             Console.Write("Clients connecting...");
             foreach (var client in multicastClients)
-                client.Connect();
+                client.ConnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in multicastClients)
             {
@@ -131,7 +131,7 @@ namespace SslMulticastClient
             // Disconnect clients
             Console.Write("Clients disconnecting...");
             foreach (var client in multicastClients)
-                client.Disconnect();
+                client.DisconnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in multicastClients)
                 while (client.IsConnected)

@@ -54,13 +54,13 @@ namespace SslEchoClient
         private void SendMessage()
         {
             if (_messagesOutput-- > 0)
-                Send(Program.MessageToSend);
+                SendAsync(Program.MessageToSend);
         }
 
         void ReceiveMessage()
         {
             if (--_messagesInput == 0)
-                Disconnect();
+                DisconnectAsync();
         }
 
         private int _messagesOutput;
@@ -155,7 +155,7 @@ namespace SslEchoClient
             // Connect clients
             Console.Write("Clients connecting...");
             foreach (var client in echoClients)
-                client.Connect();
+                client.ConnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in echoClients)
             {

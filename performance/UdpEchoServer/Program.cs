@@ -11,7 +11,7 @@ namespace UdpEchoServer
         protected override void OnStarted()
         {
             // Start receive datagrams
-            Receive();
+            ReceiveAsync();
         }
 
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
@@ -23,7 +23,7 @@ namespace UdpEchoServer
         protected override void OnSent(UdpEndpoint endpoint, long sent)
         {
             // Continue receive datagrams
-            Receive();
+            ReceiveAsync();
         }
 
         protected override void OnError(int error, string category, string message)

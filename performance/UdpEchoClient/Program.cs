@@ -20,7 +20,7 @@ namespace UdpEchoClient
             Connected = true;
 
             // Start receive datagrams
-            Receive();
+            ReceiveAsync();
 
             SendMessage();
         }
@@ -32,7 +32,7 @@ namespace UdpEchoClient
             ++Program.TotalMessages;
 
             // Continue receive datagrams
-            Receive();
+            ReceiveAsync();
 
             SendMessage();
         }
@@ -48,7 +48,7 @@ namespace UdpEchoClient
             if (_messages-- > 0)
                 SendSync(Program.MessageToSend);
             else
-                Disconnect();
+                DisconnectAsync();
         }
 
         private int _messages;
@@ -134,7 +134,7 @@ namespace UdpEchoClient
             // Connect clients
             Console.Write("Clients connecting...");
             foreach (var client in echoClients)
-                client.Connect();
+                client.ConnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in echoClients)
             {

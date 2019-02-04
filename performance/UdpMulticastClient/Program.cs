@@ -21,10 +21,10 @@ namespace UdpMulticastClient
             Connected = true;
 
             // Join UDP multicast group
-            JoinMulticastGroup(Multicast);
+            JoinMulticastGroupAsync(Multicast);
 
             // Start receive datagrams
-            Receive();
+            ReceiveAsync();
         }
 
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
@@ -32,7 +32,7 @@ namespace UdpMulticastClient
             Program.TotalBytes += size;
 
             // Continue receive datagrams
-            Receive();
+            ReceiveAsync();
         }
 
         protected override void OnError(int error, string category, string message)
@@ -120,7 +120,7 @@ namespace UdpMulticastClient
             // Connect clients
             Console.Write("Clients connecting...");
             foreach (var client in multicastClients)
-                client.Connect();
+                client.ConnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in multicastClients)
             {
@@ -137,7 +137,7 @@ namespace UdpMulticastClient
             // Disconnect clients
             Console.Write("Clients disconnecting...");
             foreach (var client in multicastClients)
-                client.Disconnect();
+                client.DisconnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in multicastClients)
                 while (client.IsConnected)
