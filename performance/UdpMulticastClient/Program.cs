@@ -21,7 +21,7 @@ namespace UdpMulticastClient
             Connected = true;
 
             // Join UDP multicast group
-            JoinMulticastGroupAsync(Multicast);
+            JoinMulticastGroup(Multicast);
 
             // Start receive datagrams
             ReceiveAsync();

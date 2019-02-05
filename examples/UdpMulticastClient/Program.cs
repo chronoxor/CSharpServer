@@ -24,7 +24,7 @@ namespace UdpMulticastClient
             Console.WriteLine($"Multicast UDP client connected a new session with Id {Id}");
 
             // Join UDP multicast group
-            JoinMulticastGroupAsync(Multicast);
+            JoinMulticastGroup(Multicast);
 
             // Start receive datagrams
             ReceiveAsync();

@@ -77,7 +77,7 @@ namespace UdpMulticastServer
 
             // Start the server
             Console.Write("Server starting...");
-            server.Start(address, port);
+            server.StartAsync(address, port);
             Console.WriteLine("Done!");
 
             // Start the multicasting thread
@@ -92,7 +92,7 @@ namespace UdpMulticastServer
                 {
                     var start = DateTime.UtcNow;
                     for (int i = 0; i < messagesRate; ++i)
-                        server.MulticastSync(message);
+                        server.Multicast(message);
                     var end = DateTime.UtcNow;
 
                     // Sleep for remaining time or yield
@@ -117,7 +117,7 @@ namespace UdpMulticastServer
                 if (line == "!")
                 {
                     Console.Write("Server restarting...");
-                    server.Restart();
+                    server.RestartAsync();
                     Console.WriteLine("Done!");
                 }
             }
@@ -128,7 +128,7 @@ namespace UdpMulticastServer
 
             // Stop the server
             Console.Write("Server stopping...");
-            server.Stop();
+            server.StopAsync();
             Console.WriteLine("Done!");
 
             // Stop the service

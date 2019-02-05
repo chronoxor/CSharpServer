@@ -46,7 +46,7 @@ namespace UdpEchoClient
         private void SendMessage()
         {
             if (_messages-- > 0)
-                SendSync(Program.MessageToSend);
+                Send(Program.MessageToSend);
             else
                 DisconnectAsync();
         }

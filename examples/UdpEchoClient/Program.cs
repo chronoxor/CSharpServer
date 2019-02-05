@@ -105,7 +105,7 @@ namespace UdpEchoClient
                 }
 
                 // Send the entered text to the chat server
-                client.SendSync(line);
+                client.Send(line);
             }
 
             // Disconnect the client
