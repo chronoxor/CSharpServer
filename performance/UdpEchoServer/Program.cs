@@ -84,7 +84,7 @@ namespace UdpEchoServer
 
             // Start the server
             Console.Write("Server starting...");
-            server.StartAsync();
+            server.Start();
             Console.WriteLine("Done!");
 
             Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
@@ -100,14 +100,14 @@ namespace UdpEchoServer
                 if (line == "!")
                 {
                     Console.Write("Server restarting...");
-                    server.RestartAsync();
+                    server.Restart();
                     Console.WriteLine("Done!");
                 }
             }
 
             // Stop the server
             Console.Write("Server stopping...");
-            server.StopAsync();
+            server.Stop();
             Console.WriteLine("Done!");
 
             // Stop the service

@@ -44,7 +44,7 @@ namespace UdpMulticastServer
 
             // Start the multicast server
             Console.Write("Server starting...");
-            server.StartAsync(multicastAddress, multicastPort);
+            server.Start(multicastAddress, multicastPort);
             Console.WriteLine("Done!");
 
             Console.WriteLine("Press Enter to stop the server or '!' to restart the server...");
@@ -60,7 +60,7 @@ namespace UdpMulticastServer
                 if (line == "!")
                 {
                     Console.Write("Server restarting...");
-                    server.RestartAsync();
+                    server.Restart();
                     Console.WriteLine("Done!");
                     continue;
                 }
@@ -72,7 +72,7 @@ namespace UdpMulticastServer
 
             // Stop the server
             Console.Write("Server stopping...");
-            server.StopAsync();
+            server.Stop();
             Console.WriteLine("Done!");
 
             // Stop the service
