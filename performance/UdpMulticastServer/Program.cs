@@ -62,6 +62,8 @@ namespace UdpMulticastServer
             Console.WriteLine($"Messages rate: {messagesRate}");
             Console.WriteLine($"Message size: {messageSize}");
 
+            Console.WriteLine();
+
             // Create a new service
             var service = new Service(threads);
 

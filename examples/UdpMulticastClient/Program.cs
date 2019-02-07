@@ -81,6 +81,8 @@ namespace UdpMulticastClient
             Console.WriteLine($"UDP multicast address: {multicastAddress}");
             Console.WriteLine($"UDP multicast port: {multicastPort}");
 
+            Console.WriteLine();
+
             // Create a new service
             var service = new Service();
 

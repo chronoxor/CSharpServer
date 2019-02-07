@@ -69,6 +69,8 @@ namespace SslChatServer
 
             Console.WriteLine($"SSL server port: {port}");
 
+            Console.WriteLine();
+
             // Create a new service
             var service = new Service();
 

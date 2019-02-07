@@ -69,6 +69,8 @@ namespace SslEchoServer
             Console.WriteLine($"Server port: {port}");
             Console.WriteLine($"Working threads: {threads}");
 
+            Console.WriteLine();
+
             // Create a new service
             var service = new Service(threads);
 

@@ -84,6 +84,8 @@ namespace TcpMulticastClient
             Console.WriteLine($"Working clients: {clients}");
             Console.WriteLine($"Message size: {size}");
 
+            Console.WriteLine();
+
             // Prepare a message to send
             MessageToSend = new byte[size];
 

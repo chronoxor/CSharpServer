@@ -64,6 +64,8 @@ namespace TcpChatClient
             Console.WriteLine($"TCP server address: {address}");
             Console.WriteLine($"TCP server port: {port}");
 
+            Console.WriteLine();
+
             // Create a new service
             var service = new Service();
 

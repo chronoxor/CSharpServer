@@ -125,6 +125,8 @@ namespace SslEchoClient
             Console.WriteLine($"Messages to send: {messages}");
             Console.WriteLine($"Message size: {size}");
 
+            Console.WriteLine();
+
             // Prepare a message to send
             MessageToSend = new byte[size];
 

@@ -45,6 +45,8 @@ namespace UdpEchoServer
 
             Console.WriteLine($"UDP server port: {port}");
 
+            Console.WriteLine();
+
             // Create a new service
             var service = new Service();
 
