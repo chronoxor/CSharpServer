@@ -22,7 +22,7 @@ namespace SslEchoServer
 
     class EchoServer : SslServer
     {
-        public EchoServer(Service service, SslContext context, InternetProtocol protocol, int port) : base(service, context, protocol, port) {}
+        public EchoServer(Service service, SslContext context, int port, InternetProtocol protocol) : base(service, context, port, protocol) {}
 
         protected override SslSession CreateSession() { return new EchoSession(this); }
 
@@ -87,7 +87,7 @@ namespace SslEchoServer
             context.UseTmpDHFile("dh4096.pem");
 
             // Create a new echo server
-            var server = new EchoServer(service, context, InternetProtocol.IPv4, port);
+            var server = new EchoServer(service, context, port, InternetProtocol.IPv4);
             // server.SetupNoDelay(true);
             server.SetupReuseAddress(true);
             server.SetupReusePort(true);

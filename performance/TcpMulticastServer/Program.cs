@@ -24,7 +24,7 @@ namespace TcpMulticastServer
 
     class MulticastServer : TcpServer
     {
-        public MulticastServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public MulticastServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override TcpSession CreateSession() { return new MulticastSession(this); }
 
@@ -88,7 +88,7 @@ namespace TcpMulticastServer
             Console.WriteLine("Done!");
 
             // Create a new echo server
-            var server = new MulticastServer(service, InternetProtocol.IPv4, port);
+            var server = new MulticastServer(service, port, InternetProtocol.IPv4);
             // server.SetupNoDelay(true);
             server.SetupReuseAddress(true);
             server.SetupReusePort(true);

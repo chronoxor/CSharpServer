@@ -98,9 +98,11 @@
     <ClInclude Include="SslServer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TcpClient.h" />
+    <ClInclude Include="TcpResolver.h" />
     <ClInclude Include="TcpServer.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UdpClient.h" />
+    <ClInclude Include="UdpResolver.h" />
     <ClInclude Include="UdpServer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -115,9 +117,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TcpClient.cpp" />
+    <ClCompile Include="TcpResolver.cpp" />
     <ClCompile Include="TcpServer.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UdpClient.cpp" />
+    <ClCompile Include="UdpResolver.cpp" />
     <ClCompile Include="UdpServer.cpp" />
   </ItemGroup>
   <ItemGroup>

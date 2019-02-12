@@ -6,7 +6,7 @@ namespace UdpMulticastServer
 {
     class MulticastServer : UdpServer
     {
-        public MulticastServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public MulticastServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override void OnError(int error, string category, string message)
         {
@@ -42,7 +42,7 @@ namespace UdpMulticastServer
             Console.WriteLine("Done!");
 
             // Create a new UDP multicast server
-            var server = new MulticastServer(service, InternetProtocol.IPv4, 0);
+            var server = new MulticastServer(service, 0, InternetProtocol.IPv4);
 
             // Start the multicast server
             Console.Write("Server starting...");

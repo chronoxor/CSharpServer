@@ -220,7 +220,7 @@ namespace TcpChatServer
 
     class ChatServer : TcpServer
     {
-        public ChatServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public ChatServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override TcpSession CreateSession() { return new ChatSession(this); }
 
@@ -250,7 +250,7 @@ namespace TcpChatServer
             Console.WriteLine("Done!");
 
             // Create a new TCP chat server
-            var server = new ChatServer(service, InternetProtocol.IPv4, port);
+            var server = new ChatServer(service, port, InternetProtocol.IPv4);
 
             // Start the server
             Console.Write("Server starting...");
@@ -476,7 +476,7 @@ namespace SslChatServer
 
     class ChatServer : SslServer
     {
-        public ChatServer(Service service, SslContext context, InternetProtocol protocol, int port) : base(service, context, protocol, port) {}
+        public ChatServer(Service service, SslContext context, int port, InternetProtocol protocol) : base(service, context, port, protocol) {}
 
         protected override SslSession CreateSession() { return new ChatSession(this); }
 
@@ -513,7 +513,7 @@ namespace SslChatServer
             context.UseTmpDHFile("dh4096.pem");
 
             // Create a new SSL chat server
-            var server = new ChatServer(service, context, InternetProtocol.IPv4, port);
+            var server = new ChatServer(service, context, port, InternetProtocol.IPv4);
 
             // Start the server
             Console.Write("Server starting...");
@@ -646,7 +646,9 @@ namespace SslChatClient
 
             // Create and prepare a new SSL client context
             var context = new SslContext(SslMethod.TLSV12);
-            context.SetVerifyMode(SslVerifyMode.VerifyPeer);
+            context.SetDefaultVerifyPaths();
+            context.SetRootCerts();
+            context.SetVerifyMode(SslVerifyMode.VerifyPeer | SslVerifyMode.VerifyFailIfNoPeerCert);
             context.LoadVerifyFile("ca.pem");
 
             // Create a new SSL chat client
@@ -706,7 +708,7 @@ namespace UdpEchoServer
 {
     class EchoServer : UdpServer
     {
-        public EchoServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public EchoServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override void OnStarted()
         {
@@ -754,7 +756,7 @@ namespace UdpEchoServer
             Console.WriteLine("Done!");
 
             // Create a new UDP echo server
-            var server = new EchoServer(service, InternetProtocol.IPv4, port);
+            var server = new EchoServer(service, port, InternetProtocol.IPv4);
 
             // Start the server
             Console.Write("Server starting...");
@@ -936,7 +938,7 @@ namespace UdpMulticastServer
 {
     class MulticastServer : UdpServer
     {
-        public MulticastServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public MulticastServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override void OnError(int error, string category, string message)
         {
@@ -970,7 +972,7 @@ namespace UdpMulticastServer
             Console.WriteLine("Done!");
 
             // Create a new UDP multicast server
-            var server = new MulticastServer(service, InternetProtocol.IPv4, 0);
+            var server = new MulticastServer(service, 0, InternetProtocol.IPv4);
 
             // Start the multicast server
             Console.Write("Server starting...");

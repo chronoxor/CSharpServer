@@ -48,7 +48,7 @@ namespace SslChatServer
 
     class ChatServer : SslServer
     {
-        public ChatServer(Service service, SslContext context, InternetProtocol protocol, int port) : base(service, context, protocol, port) {}
+        public ChatServer(Service service, SslContext context, int port, InternetProtocol protocol) : base(service, context, port, protocol) {}
 
         protected override SslSession CreateSession() { return new ChatSession(this); }
 
@@ -87,7 +87,7 @@ namespace SslChatServer
             context.UseTmpDHFile("dh4096.pem");
 
             // Create a new SSL chat server
-            var server = new ChatServer(service, context, InternetProtocol.IPv4, port);
+            var server = new ChatServer(service, context, port, InternetProtocol.IPv4);
 
             // Start the server
             Console.Write("Server starting...");

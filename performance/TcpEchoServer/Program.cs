@@ -22,7 +22,7 @@ namespace TcpEchoServer
 
     class EchoServer : TcpServer
     {
-        public EchoServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public EchoServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override TcpSession CreateSession() { return new EchoSession(this); }
 
@@ -80,7 +80,7 @@ namespace TcpEchoServer
             Console.WriteLine("Done!");
 
             // Create a new echo server
-            var server = new EchoServer(service, InternetProtocol.IPv4, port);
+            var server = new EchoServer(service, port, InternetProtocol.IPv4);
             // server.SetupNoDelay(true);
             server.SetupReuseAddress(true);
             server.SetupReusePort(true);

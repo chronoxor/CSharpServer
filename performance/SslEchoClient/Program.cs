@@ -140,7 +140,9 @@ namespace SslEchoClient
 
             // Create and prepare a new SSL client context
             var context = new SslContext(SslMethod.TLSV12);
-            context.SetVerifyMode(SslVerifyMode.VerifyPeer);
+            context.SetDefaultVerifyPaths();
+            context.SetRootCerts();
+            context.SetVerifyMode(SslVerifyMode.VerifyPeer | SslVerifyMode.VerifyFailIfNoPeerCert);
             context.LoadVerifyFile("ca.pem");
 
             // Create echo clients

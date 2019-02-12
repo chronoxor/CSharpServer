@@ -6,7 +6,7 @@ namespace UdpEchoServer
 {
     class EchoServer : UdpServer
     {
-        public EchoServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public EchoServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override void OnStarted()
         {
@@ -56,7 +56,7 @@ namespace UdpEchoServer
             Console.WriteLine("Done!");
 
             // Create a new UDP echo server
-            var server = new EchoServer(service, InternetProtocol.IPv4, port);
+            var server = new EchoServer(service, port, InternetProtocol.IPv4);
 
             // Start the server
             Console.Write("Server starting...");

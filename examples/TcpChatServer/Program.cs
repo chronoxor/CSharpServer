@@ -43,7 +43,7 @@ namespace TcpChatServer
 
     class ChatServer : TcpServer
     {
-        public ChatServer(Service service, InternetProtocol protocol, int port) : base(service, protocol, port) {}
+        public ChatServer(Service service, int port, InternetProtocol protocol) : base(service, port, protocol) {}
 
         protected override TcpSession CreateSession() { return new ChatSession(this); }
 
@@ -75,7 +75,7 @@ namespace TcpChatServer
             Console.WriteLine("Done!");
 
             // Create a new TCP chat server
-            var server = new ChatServer(service, InternetProtocol.IPv4, port);
+            var server = new ChatServer(service, port, InternetProtocol.IPv4);
 
             // Start the server
             Console.Write("Server starting...");
