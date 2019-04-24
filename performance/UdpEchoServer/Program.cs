@@ -16,6 +16,13 @@ namespace UdpEchoServer
 
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
         {
+            // Continue receive datagrams
+            if (size == 0)
+            {
+                ReceiveAsync();
+                return;
+            }
+
             // Echo the message back to the sender
             SendAsync(endpoint, buffer, 0, size);
         }
