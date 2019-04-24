@@ -8,8 +8,6 @@ namespace UdpEchoClient
 {
     class EchoClient : UdpClient
     {
-        public bool Connected { get; set; }
-
         public EchoClient(Service service, string address, int port, int messages) : base(service, address, port)
         {
             _messages = messages;
@@ -17,12 +15,11 @@ namespace UdpEchoClient
 
         protected override void OnConnected()
         {
-            Connected = true;
-
             // Start receive datagrams
             ReceiveAsync();
 
-            SendMessage();
+            for (long i = _messages; i > 0; --i)
+                SendMessage();
         }
 
         protected override void OnReceived(UdpEndpoint endpoint, byte[] buffer, long size)
@@ -45,13 +42,10 @@ namespace UdpEchoClient
 
         private void SendMessage()
         {
-            if (_messages-- > 0)
-                Send(Program.MessageToSend);
-            else
-                DisconnectAsync();
+            SendAsync(Program.MessageToSend);
         }
 
-        private int _messages;
+        private long _messages;
     }
 
     class Program
@@ -72,6 +66,7 @@ namespace UdpEchoClient
             int clients = 100;
             int messages = 1000000;
             int size = 32;
+            int seconds = 10;
 
             var options = new OptionSet()
             {
@@ -81,7 +76,8 @@ namespace UdpEchoClient
                 { "t|threads=", v => threads = int.Parse(v) },
                 { "c|clients=", v => clients = int.Parse(v) },
                 { "m|messages=", v => messages = int.Parse(v) },
-                { "s|size=", v => size = int.Parse(v) }
+                { "s|size=", v => size = int.Parse(v) },
+                { "z|seconds=", v => seconds = int.Parse(v) }
             };
 
             try
@@ -107,8 +103,9 @@ namespace UdpEchoClient
             Console.WriteLine($"Server port: {port}");
             Console.WriteLine($"Working threads: {threads}");
             Console.WriteLine($"Working clients: {clients}");
-            Console.WriteLine($"Messages to send: {messages}");
+            Console.WriteLine($"Working messages: {messages}");
             Console.WriteLine($"Message size: {size}");
+            Console.WriteLine($"Seconds to benchmarking: {seconds}");
 
             Console.WriteLine();
 
@@ -127,7 +124,7 @@ namespace UdpEchoClient
             var echoClients = new List<EchoClient>();
             for (int i = 0; i < clients; ++i)
             {
-                var client = new EchoClient(service, address, port, messages / clients);
+                var client = new EchoClient(service, address, port, messages);
                 echoClients.Add(client);
             }
 
@@ -139,16 +136,24 @@ namespace UdpEchoClient
                 client.ConnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in echoClients)
-                while (!client.Connected)
+                while (!client.IsConnected)
                     Thread.Yield();
             Console.WriteLine("All clients connected!");
 
-            // Wait for processing all messages
-            Console.Write("Processing...");
+            // Wait for benchmarking
+            Console.Write("Benchmarking...");
+            Thread.Sleep(seconds * 1000);
+            Console.WriteLine("Done!");
+
+            // Disconnect clients
+            Console.Write("Clients disconnecting...");
+            foreach (var client in echoClients)
+                client.DisconnectAsync();
+            Console.WriteLine("Done!");
             foreach (var client in echoClients)
                 while (client.IsConnected)
-                    Thread.Sleep(100);
-            Console.WriteLine("Done!");
+                    Thread.Yield();
+            Console.WriteLine("All clients disconnected!");
 
             // Stop the service
             Console.Write("Service stopping...");
