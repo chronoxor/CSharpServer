@@ -162,19 +162,15 @@ namespace SslEchoClient
                 client.ConnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in echoClients)
-            {
                 while (!client.Handshaked)
                     Thread.Yield();
-            }
             Console.WriteLine("All clients connected!");
 
             // Wait for processing all messages
             Console.Write("Processing...");
             foreach (var client in echoClients)
-            {
                 while (client.IsConnected)
                     Thread.Sleep(100);
-            }
             Console.WriteLine("Done!");
 
             // Stop the service

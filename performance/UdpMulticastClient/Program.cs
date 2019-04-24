@@ -8,7 +8,6 @@ namespace UdpMulticastClient
 {
     class MulticastClient : UdpClient
     {
-        public bool Connected { get; set; }
         public string Multicast { get; set; }
 
         public MulticastClient(Service service, string address, string multicast, int port) : base(service, address, port)
@@ -18,8 +17,6 @@ namespace UdpMulticastClient
 
         protected override void OnConnected()
         {
-            Connected = true;
-
             // Join UDP multicast group
             JoinMulticastGroup(Multicast);
 
@@ -125,10 +122,8 @@ namespace UdpMulticastClient
                 client.ConnectAsync();
             Console.WriteLine("Done!");
             foreach (var client in multicastClients)
-            {
-                while (!client.Connected)
+                while (!client.IsConnected)
                     Thread.Yield();
-            }
             Console.WriteLine("All clients connected!");
 
             // Sleep for 10 seconds...
