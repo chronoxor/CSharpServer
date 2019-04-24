@@ -69,7 +69,7 @@ namespace SslEchoClient
             int port = 2222;
             int threads = Environment.ProcessorCount;
             int clients = 100;
-            int messages = 1000000;
+            int messages = 1000;
             int size = 32;
             int seconds = 10;
 
