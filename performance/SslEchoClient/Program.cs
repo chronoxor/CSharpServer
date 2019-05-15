@@ -181,7 +181,7 @@ namespace SslEchoClient
 
             TotalMessages = TotalBytes / size;
 
-            Console.WriteLine($"Round-trip time: {Service.GenerateTimePeriod((TimestampStop - TimestampStart).TotalMilliseconds)}");
+            Console.WriteLine($"Total time: {Service.GenerateTimePeriod((TimestampStop - TimestampStart).TotalMilliseconds)}");
             Console.WriteLine($"Total data: {Service.GenerateDataSize(TotalBytes)}");
             Console.WriteLine($"Total messages: {TotalMessages}");
             Console.WriteLine($"Data throughput: {Service.GenerateDataSize((long)(TotalBytes / (TimestampStop - TimestampStart).TotalSeconds))}/s");
