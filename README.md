@@ -1347,7 +1347,7 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.003 s
+Total time: 10.003 s
 Total data: 947.864 MiB
 Total messages: 31058956
 Data throughput: 94.764 MiB/s
@@ -1367,7 +1367,7 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.008 s
+Total time: 10.008 s
 Total data: 330.068 MiB
 Total messages: 10815633
 Data throughput: 32.1001 MiB/s
@@ -1389,7 +1389,7 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.012 s
+Total time: 10.012 s
 Total data: 974.081 MiB
 Total messages: 31918634
 Data throughput: 97.291 MiB/s
@@ -1409,7 +1409,7 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.401 s
+Total time: 10.401 s
 Total data: 1.121 GiB
 Total messages: 37543146
 Data throughput: 110.149 MiB/s
@@ -1431,7 +1431,7 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.002 s
+Total time: 10.002 s
 Total data: 15.1000 MiB
 Total messages: 523548
 Data throughput: 1.611 MiB/s
@@ -1451,7 +1451,7 @@ Message size: 32
 
 Errors: 0
 
-Multicast time: 10.013 s
+Total time: 10.013 s
 Total data: 57.876 MiB
 Total messages: 1895816
 Data throughput: 5.796 MiB/s

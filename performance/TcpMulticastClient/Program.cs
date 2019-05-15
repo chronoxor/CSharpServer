@@ -41,6 +41,7 @@ namespace TcpMulticastClient
             int threads = Environment.ProcessorCount;
             int clients = 100;
             int size = 32;
+            int seconds = 10;
 
             var options = new OptionSet()
             {
@@ -49,7 +50,8 @@ namespace TcpMulticastClient
                 { "p|port=", v => port = int.Parse(v) },
                 { "t|threads=", v => threads = int.Parse(v) },
                 { "c|clients=", v => clients = int.Parse(v) },
-                { "s|size=", v => size = int.Parse(v) }
+                { "s|size=", v => size = int.Parse(v) },
+                { "z|seconds=", v => seconds = int.Parse(v) }
             };
 
             try
@@ -76,6 +78,7 @@ namespace TcpMulticastClient
             Console.WriteLine($"Working threads: {threads}");
             Console.WriteLine($"Working clients: {clients}");
             Console.WriteLine($"Message size: {size}");
+            Console.WriteLine($"Seconds to benchmarking: {seconds}");
 
             Console.WriteLine();
 
@@ -111,9 +114,9 @@ namespace TcpMulticastClient
                     Thread.Yield();
             Console.WriteLine("All clients connected!");
 
-            // Sleep for 10 seconds...
-            Console.Write("Processing...");
-            Thread.Sleep(10000);
+            // Wait for benchmarking
+            Console.Write("Benchmarking...");
+            Thread.Sleep(seconds * 1000);
             Console.WriteLine("Done!");
 
             // Disconnect clients
@@ -141,7 +144,7 @@ namespace TcpMulticastClient
 
             TotalMessages = TotalBytes / size;
 
-            Console.WriteLine($"Multicast time: {Service.GenerateTimePeriod((TimestampStop - TimestampStart).TotalMilliseconds)}");
+            Console.WriteLine($"Total time: {Service.GenerateTimePeriod((TimestampStop - TimestampStart).TotalMilliseconds)}");
             Console.WriteLine($"Total data: {Service.GenerateDataSize(TotalBytes)}");
             Console.WriteLine($"Total messages: {TotalMessages}");
             Console.WriteLine($"Data throughput: {Service.GenerateDataSize((long)(TotalBytes / (TimestampStop - TimestampStart).TotalSeconds))}/s");
