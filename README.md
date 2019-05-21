@@ -1468,7 +1468,7 @@ certificates for testing purposes:
 
 * Create CA private key
 ```shell
-openssl genrsa -des3 -passout pass:qwerty -out ca-secret.key 4096
+openssl genrsa -passout pass:qwerty -out ca-secret.key 4096
 ```
 
 * Remove passphrase
@@ -1478,7 +1478,7 @@ openssl rsa -passin pass:qwerty -in ca-secret.key -out ca.key
 
 * Create CA self-signed certificate
 ```shell
-openssl req -new -x509 -days 3650 -subj '/C=BY/ST=Belarus/L=Minsk/O=Example root CA/OU=Example CA unit/CN=example.com' -key ca.key -out ca.crt -config openssl.cnf
+openssl req -new -x509 -days 3650 -subj '/C=BY/ST=Belarus/L=Minsk/O=Example root CA/OU=Example CA unit/CN=example.com' -key ca.key -out ca.crt
 ```
 
 * Convert CA self-signed certificate to PKCS
@@ -1500,7 +1500,7 @@ openssl pkcs12 -export -out ca.pfx -inkey ca.key -in ca.crt
 
 * Create private key for the server
 ```shell
-openssl genrsa -des3 -passout pass:qwerty -out server-secret.key 4096
+openssl genrsa -passout pass:qwerty -out server-secret.key 4096
 ```
 
 * Remove passphrase
@@ -1510,7 +1510,7 @@ openssl rsa -passin pass:qwerty -in server-secret.key -out server.key
 
 * Create CSR for the server
 ```shell
-openssl req -new -subj '/C=BY/ST=Belarus/L=Minsk/O=Example server/OU=Example server unit/CN=server.example.com' -key server.key -out server.csr -config openssl.cnf
+openssl req -new -subj '/C=BY/ST=Belarus/L=Minsk/O=Example server/OU=Example server unit/CN=server.example.com' -key server.key -out server.csr
 ```
 
 * Create certificate for the server
@@ -1537,7 +1537,7 @@ openssl pkcs12 -export -out server.pfx -inkey server.key -in server.crt
 
 * Create private key for the client
 ```shell
-openssl genrsa -des3 -passout pass:qwerty -out client-secret.key 4096
+openssl genrsa -passout pass:qwerty -out client-secret.key 4096
 ```
 
 * Remove passphrase
@@ -1547,7 +1547,7 @@ openssl rsa -passin pass:qwerty -in client-secret.key -out client.key
 
 * Create CSR for the client
 ```shell
-openssl req -new -subj '/C=BY/ST=Belarus/L=Minsk/O=Example client/OU=Example client unit/CN=client.example.com' -key client.key -out client.csr -config openssl.cnf
+openssl req -new -subj '/C=BY/ST=Belarus/L=Minsk/O=Example client/OU=Example client unit/CN=client.example.com' -key client.key -out client.csr
 ```
 
 * Create the client certificate
