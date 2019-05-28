@@ -29,8 +29,7 @@ install:
   # Chocolatey
   - choco upgrade chocolatey
   # Visual Studio
-  - if "%type%"=="VisualStudio" set INCLUDE=C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared;%INCLUDE%
-  - if "%type%"=="VisualStudio" set LIB=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x64;%LIB%
+  - if "%type%"=="VisualStudio" call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
   # CMake
   - '%command% "cmake --version"'
   # gil
