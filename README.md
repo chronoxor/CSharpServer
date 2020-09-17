@@ -50,6 +50,7 @@ solution.
 * [cmake](https://www.cmake.org)
 * [git](https://git-scm.com)
 * [gil](https://github.com/chronoxor/gil.git)
+* [python3](https://www.python.org)
 * [Visual Studio](https://www.visualstudio.com)
 
 # How to build?
