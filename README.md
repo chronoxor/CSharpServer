@@ -33,6 +33,8 @@ solution.
       * [SSL multicast server](#ssl-multicast-server)
       * [UDP multicast server](#udp-multicast-server)
   * [OpenSSL certificates](#openssl-certificates)
+    * [Production](#production)
+    * [Development](#development)
     * [Certificate Authority](#certificate-authority)
     * [SSL Server certificate](#ssl-server-certificate)
     * [SSL Client certificate](#ssl-client-certificate)
@@ -1183,7 +1185,7 @@ Process configuaraion: release
 
 This scenario sends lots of messages from several clients to a server.
 The server responses to each message and resend the similar response to
-the client. The benchmark measures total Round-trip time to send all
+the client. The benchmark measures total round-trip time to send all
 messages and receive all responses, messages & data throughput, count
 of errors.
 
@@ -1462,8 +1464,24 @@ Message throughput: 189335 msg/s
 
 # OpenSSL certificates
 In order to create OpenSSL based server and client you should prepare a set of
-SSL certificates. Here comes several steps to get a self-signed set of SSL
-certificates for testing purposes:
+SSL certificates.
+
+## Production
+Depending on your project, you may need to purchase a traditional SSL
+certificate signed by a Certificate Authority. If you, for instance,
+want some else's web browser to talk to your WebSocket project, you'll
+need a traditional SSL certificate.
+
+## Development
+The commands below entered in the order they are listed will generate a
+self-signed certificate for development or testing purposes.
+
+If you want to save some time, download and run [Generate-Certs](https://github.com/asheroto/NetCoreServer-Generate-Certs)
+and it will generate the certs for you in less than a minute.
+Supports Windows + Linux.
+
+If you'd rather enter in the commands to generate the cert manually,
+here is the list in order below.
 
 ## Certificate Authority
 
