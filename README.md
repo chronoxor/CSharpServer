@@ -1,6 +1,6 @@
 # CSharpServer
 
-![Windows (Visual Studio)](https://github.com/chronoxor/CSharpServer/actions/workflows/build-windows-msvc.yml/badge.svg)
+![Windows (Visual Studio)](https://github.com/chronoxor/CSharpServer/actions/workflows/build-windows-vs.yml/badge.svg)
 
 Ultra fast and low latency asynchronous socket server & client C# library with
 support TCP, SSL, UDP protocols and [10K connections problem](https://en.wikipedia.org/wiki/C10k_problem)
