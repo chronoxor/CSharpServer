@@ -1194,7 +1194,7 @@ of errors.
 ### TCP echo server
 
 * [TcpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoServer/Program.cs)
-* [TcpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoClient/Program.cs) -c 1 -t 1
+* [TcpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoClient/Program.cs) --clients 1 --threads 1
 
 ```
 Server address: 127.0.0.1
@@ -1216,7 +1216,7 @@ Message throughput: 4970671 msg/s
 ```
 
 * [TcpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoServer/Program.cs)
-* [TcpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoClient/Program.cs) -c 100 -t 4
+* [TcpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpEchoClient/Program.cs) --clients 100 --threads 4
 
 ```
 Server address: 127.0.0.1
@@ -1240,7 +1240,7 @@ Message throughput: 3534415 msg/s
 ### SSL echo server
 
 * [SslEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoServer/Program.cs)
-* [SslEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoClient/Program.cs) -c 1 -t 1
+* [SslEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoClient/Program.cs) --clients 1 --threads 1
 
 ```
 Server address: 127.0.0.1
@@ -1262,7 +1262,7 @@ Message throughput: 495500 msg/s
 ```
 
 * [SslEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoServer/Program.cs)
-* [SslEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoClient/Program.cs) -c 100 -t 4
+* [SslEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslEchoClient/Program.cs) --clients 100 --threads 4
 
 ```
 Server address: 127.0.0.1
@@ -1286,7 +1286,7 @@ Message throughput: 1307300 msg/s
 ### UDP echo server
 
 * [UdpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoServer/Program.cs)
-* [UdpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoClient/Program.cs) -c 1 -t 1
+* [UdpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoClient/Program.cs) --clients 1 --threads 1
 
 ```
 Server address: 127.0.0.1
@@ -1308,7 +1308,7 @@ Message throughput: 33857 msg/s
 ```
 
 * [UdpEchoServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoServer/Program.cs)
-* [UdpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoClient/Program.cs) -c 100 -t 4
+* [UdpEchoClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpEchoClient/Program.cs) --clients 100 --threads 4
 
 ```
 Server address: 127.0.0.1
@@ -1341,7 +1341,7 @@ of errors.
 ### TCP multicast server
 
 * [TcpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastServer/Program.cs)
-* [TcpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastClient/Program.cs) -c 1 -t 1
+* [TcpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastClient/Program.cs) --clients 1 --threads 1
 
 ```
 Server address: 127.0.0.1
@@ -1361,7 +1361,7 @@ Message throughput: 3104662 msg/s
 ```
 
 * [TcpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastServer/Program.cs)
-* [TcpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastClient/Program.cs) -c 100 -t 4
+* [TcpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/TcpMulticastClient/Program.cs) --clients 100 --threads 4
 
 ```
 Server address: 127.0.0.1
@@ -1383,7 +1383,7 @@ Message throughput: 1080613 msg/s
 ### SSL multicast server
 
 * [SslMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastServer/Program.cs)
-* [SslMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastClient/Program.cs) -c 1 -t 1
+* [SslMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastClient/Program.cs) --clients 1 --threads 1
 
 ```
 Server address: 127.0.0.1
@@ -1403,7 +1403,7 @@ Message throughput: 3187826 msg/s
 ```
 
 * [SslMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastServer/Program.cs)
-* [SslMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastClient/Program.cs) -c 100 -t 4
+* [SslMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/SslMulticastClient/Program.cs) --clients 100 --threads 4
 
 ```
 Server address: 127.0.0.1
@@ -1425,7 +1425,7 @@ Message throughput: 3609250 msg/s
 ### UDP multicast server
 
 * [UdpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastServer/Program.cs)
-* [UdpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastClient/Program.cs) -c 1 -t 1
+* [UdpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastClient/Program.cs) --clients 1 --threads 1
 
 ```
 Server address: 239.255.0.1
@@ -1445,7 +1445,7 @@ Message throughput: 52339 msg/s
 ```
 
 * [UdpMulticastServer](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastServer/Program.cs)
-* [UdpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastClient/Program.cs) -c 100 -t 4
+* [UdpMulticastClient](https://github.com/chronoxor/CSharpServer/blob/master/performance/UdpMulticastClient/Program.cs) --clients 100 --threads 4
 
 ```
 Server address: 239.255.0.1
