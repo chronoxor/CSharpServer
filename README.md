@@ -1,6 +1,6 @@
 # CSharpServer
 
-![Windows (Visual Studio)](https://github.com/chronoxor/CSharpServer/actions/workflows/build-windows-vs.yml/badge.svg)
+[![Windows (Visual Studio)](https://github.com/chronoxor/CSharpServer/actions/workflows/build-windows-vs.yml/badge.svg)](https://github.com/chronoxor/CSharpServer/actions/workflows/build-windows-vs.yml)
 
 **This project is not supported anymore! Please considering migrating to [NetCoreServer](https://github.com/chronoxor/NetCoreServer)**
 
