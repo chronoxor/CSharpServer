@@ -1,5 +1,7 @@
 # CSharpServer
 
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Release](https://img.shields.io/github/release/chronoxor/CSharpServer.svg?sort=semver)](https://github.com/chronoxor/CSharpServer/releases)
 [![Windows (Visual Studio)](https://github.com/chronoxor/CSharpServer/actions/workflows/build-windows-vs.yml/badge.svg)](https://github.com/chronoxor/CSharpServer/actions/workflows/build-windows-vs.yml)
 
 **This project is not supported anymore! Please considering migrating to [NetCoreServer](https://github.com/chronoxor/NetCoreServer)**
